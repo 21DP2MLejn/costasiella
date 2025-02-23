@@ -51,6 +51,7 @@ class MailTemplateDude:
             "order_received": self._render_template_order_received,
             "recurring_payment_failed": self._render_template_recurring_payment_failed,
             "trialpass_followup": self._render_template_triaplass_followup,
+            "invoice_notification": self._render_invoice_notification,
         }
 
         func = functions.get(self.email_template, lambda: None)
@@ -163,6 +164,37 @@ class MailTemplateDude:
             error=error,
             error_message=error_message
         )
+    
+    def _render_invoice_notification(self):
+        """
+        Render invoice notification template
+        :return: HTML message
+        """
+        from ..models import SystemMailTemplate
+
+        # Check if we have the required arguments
+        invoice = self.kwargs.get('invoice', None)
+        if not invoice:
+            raise Exception(_("Invoice not found!"))
+
+        # Fetch template using ID 60000
+        mail_template = SystemMailTemplate.objects.get(pk=60000)
+
+        # Render content
+        content_context = Context({
+            "invoice": invoice,
+            "account": invoice.account
+        })
+        content_template = Template(mail_template.content)
+        content = content_template.render(content_context)
+
+        return dict(
+            subject=mail_template.subject,
+            title=mail_template.title,
+            description=mail_template.description,
+            content=content,
+            comments=mail_template.comments
+        )
 
     def _render_event_info_mail(self):
         """
@@ -172,7 +204,7 @@ class MailTemplateDude:
         from ..models import SystemMailTemplate
 
         app_settings_dude = AppSettingsDude()
-        # date_dude = DateToolsDude()
+        date_dude = DateToolsDude()
         # Check if we have the required arguments
         error = False
         error_message = ""

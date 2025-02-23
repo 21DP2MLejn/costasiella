@@ -1,0 +1,23 @@
+<div style="font-family: sans-serif; line-height: 1.5;">
+    <h2>New Invoice</h2>
+    
+    <p>Dear {{ account.first_name }},</p>
+    
+    <p>A new invoice has been created for your account:</p>
+    
+    <ul style="list-style: none; padding-left: 0;">
+        <li><strong>Invoice Number:</strong> {{ invoice.invoice_number }}</li>
+        <li><strong>Date:</strong> {{ invoice.date_created|date:"F j, Y" }}</li>
+        <li><strong>Amount:</strong> {{ invoice.currency }} {{ invoice.total|floatformat:2 }}</li>
+        <li><strong>Due Date:</strong> {{ invoice.date_due|date:"F j, Y" }}</li>
+    </ul>
+
+    <p>You can view and download your invoice by logging into your account.</p>
+    
+    <p>Please ensure payment is made by the due date to avoid any service interruptions.</p>
+    
+    <p>If you have any questions about this invoice, please don't hesitate to contact us.</p>
+    
+    <p>Best regards,<br>
+    </p>
+</div>

@@ -10,6 +10,9 @@ from .business import Business
 from .finance_invoice_group import FinanceInvoiceGroup
 from .finance_payment_method import FinancePaymentMethod
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 from .helpers import model_string
 
 now = timezone.now()
@@ -56,6 +59,22 @@ class FinanceInvoice(models.Model):
     credit_invoice_for = models.IntegerField(default=None, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def send_notification_email(self):
+        """
+        Send invoice notification email
+        """
+        from ..dudes.mail_dude import MailDude
+        
+        # Initialize MailDude with required arguments and context
+        mail_dude = MailDude(
+            account=self.account,
+            email_template='invoice_notification',
+            invoice=self  # Pass invoice as additional context
+        )
+        
+        # Just call send() without parameters
+        return mail_dude.send()
 
     def __str__(self):
         return model_string(self)
@@ -197,6 +216,7 @@ class FinanceInvoice(models.Model):
             account_subscription__isnull=False,
         )
         return qs.exists()
+
 
     def item_add_schedule_event_ticket(self, account_schedule_event_ticket):
         """
@@ -766,8 +786,11 @@ class FinanceInvoice(models.Model):
                 finance_costcenter=finance_invoice_item.finance_costcenter
             )
             credit_finance_invoice_item.save()
-
         # Set amounts on credit invoice
-        credit_invoice.update_amounts()
-
+        credit_invoice = instance.cancel_and_create_credit_invoice()
         return credit_invoice
+
+@receiver(post_save, sender='costasiella.FinanceInvoice')
+def handle_invoice_notification(sender, instance, created, **kwargs):
+    if created and instance.status == 'SENT':
+        instance.send_notification_email()

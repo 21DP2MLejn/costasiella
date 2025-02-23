@@ -71,6 +71,43 @@ GRAPHQL_JWT = {
     'JWT_COOKIE_SAMESITE': 'Lax'
 }
 
-# Django-defender & celery use
-DEFENDER_REDIS_URL = 'redis://localhost:6379/0'
-CELERY_BROKER_URL = "redis://localhost:6379/1"
+# Cache configuration
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}
+
+MIDDLEWARE = [
+    middleware for middleware in MIDDLEWARE
+    if not middleware.startswith('defender')
+]
+
+# Vault configuration
+VAULT_ADDR = "http://localhost:8200" 
+VAULT_TOKEN = "hvs.GGxVJCtFULelpUu8dxbp3gOu"      
+VAULT_TRANSIT_KEY = "costasiella"    
+
+# Django-defender settings
+DEFENDER_REDIS_URL = None  # Add this line
+DEFENDER_STORE_ACCESS_ATTEMPTS = True
+DEFENDER_ENABLED = False
+DEFENDER_USE_REDIS = False
+DEFENDER_STORE_ACCESS_ATTEMPTS_IN_DB = True
+DEFENDER_LOCK_OUT_BY_IP_AND_USERNAME = True
+DEFENDER_DISABLE_IP_LOCKOUT = True  # Change this to True
+DEFENDER_DISABLE_USERNAME_LOCKOUT = True  # Change this to True
+DEFENDER_COOLOFF_TIME = 300
+DEFENDER_LOCKOUT_TEMPLATE = None
+DEFENDER_LOGIN_FAILURE_LIMIT = 3
+
+#CELERY_BROKER_URL = "redis://localhost:6379/1"
+
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'pulsefitnessauto@gmail.com'  # Your Gmail address
+EMAIL_HOST_PASSWORD = 'fiag wpjh knbe zsql'  # Gmail App Password

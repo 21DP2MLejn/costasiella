@@ -131,8 +131,8 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'costasiella',
-            'USER': 'user',
-            'PASSWORD': 'password',
+            'USER': 'martins',
+            'PASSWORD': 'password123',
             'HOST': 'localhost',
             'PORT': 3306
         }
@@ -243,8 +243,8 @@ ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 ACCOUNT_LOGIN_ON_PASSWORD_RESET = False  # Log in users after password reset instead of showing a "done" page.
 
 # Recaptcha settings
-RECAPTCHA_PUBLIC_KEY = '6LdrS0UdAAAAAC80ljwGI70bjhI2VE5PL7grpriJ'
-RECAPTCHA_PRIVATE_KEY = '6LdrS0UdAAAAACLiq4k8r6i4bfvCCC_afKKd0YRW'
+RECAPTCHA_PUBLIC_KEY = '6LdYSMQqAAAAAJDXejMSbMVhHL6w9THJe9Ulqw5I'
+RECAPTCHA_PRIVATE_KEY = '6LdYSMQqAAAAAAAeIlM0hCrLnt17PZR7nmjZphGc'
 RECAPTCHA_REQUIRED_SCORE = 0.65
 
 

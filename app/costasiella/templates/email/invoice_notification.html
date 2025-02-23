@@ -1,0 +1,26 @@
+{% extends "email/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<p>{% trans "Dear" %} {{ invoice.relation_contact_name }},</p>
+
+<p>{% trans "A new invoice has been created for you:" %}</p>
+
+<ul>
+    <li>{% trans "Invoice number:" %} #{{ invoice.invoice_number }}</li>
+    <li>{% trans "Date:" %} {{ invoice.date_sent }}</li>
+    <li>{% trans "Due date:" %} {{ invoice.date_due }}</li>
+    <li>{% trans "Amount:" %} {{ currency_symbol }} {{ invoice.total }}</li>
+</ul>
+
+<p>
+    <a href="{{ site_url }}/d/invoice/{{ invoice.id }}" class="button">
+        {% trans "View Invoice" %}
+    </a>
+</p>
+
+{% if invoice.terms %}
+<p><small>{% trans "Terms and conditions:" %}<br>
+{{ invoice.terms|safe }}</small></p>
+{% endif %}
+{% endblock %}
