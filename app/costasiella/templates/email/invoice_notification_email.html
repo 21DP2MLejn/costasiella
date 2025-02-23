@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto;">
+        {% if organization.logo_invoice %}
+        <div style="text-align: left; margin-bottom: 20px;">
+            <img src="{{ organization.logo_invoice.url }}" alt="{{ organization.name }}" style="max-height: 60px;">
+        </div>
+        {% endif %}
+
+        <div style="margin-bottom: 30px;">
+            <div style="float: right; text-align: right;">
+                <strong>Rēķins Nr. {{ invoice.finance_invoice_group.prefix }}{{ invoice.invoice_number }}</strong><br>
+                Datums: {{ invoice.date_sent|date:"Y. \g\a\d\a j. F" }}
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="width: 50%; padding: 10px 20px 10px 0;">
+                        <strong>Piegādātājs:</strong><br>
+                        {{ organization.name }}<br>
+                        Reģistrācijas Nr.: {{ organization.registration }}<br>
+                        PVN Nr.: {{ organization.tax_registration }}<br>
+                        {{ organization.address|linebreaksbr }}
+                    </td>
+                    <td style="width: 50%; padding: 10px 0;">
+                        <strong>Maksātājs:</strong><br>
+                        {{ invoice.relation_contact_name }}<br>
+                        {% if invoice.relation_address %}{{ invoice.relation_address }}<br>{% endif %}
+                        {% if invoice.relation_postcode %}{{ invoice.relation_postcode }}{% endif %}
+                        {% if invoice.relation_city %} {{ invoice.relation_city }}<br>{% endif %}
+                        {% if invoice.relation_country %}{{ invoice.relation_country }}{% endif %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <strong>Darījuma apraksts:</strong> {{ invoice.summary }}<br>
+            <strong>Apmaksas termiņš:</strong> {{ invoice.date_due|date:"Y. \g\a\d\a j. F" }}<br>
+            <strong>Samaksas veids:</strong> Bankas pārskaitījums
+        </div>
+
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
+            <thead>
+                <tr style="background-color: #f5f5f5;">
+                    <th style="padding: 10px; text-align: left;">Apraksts</th>
+                    <th style="padding: 10px; text-align: center;">Mērv.</th>
+                    <th style="padding: 10px; text-align: center;">Daudz.</th>
+                    <th style="padding: 10px; text-align: right;">Cena</th>
+                    <th style="padding: 10px; text-align: right;">PVN</th>
+                    <th style="padding: 10px; text-align: right;">Summa</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in invoice.items.all %}
+                <tr>
+                    <td style="padding: 10px; border-bottom: 1px solid #eee;">{{ item.product_name }}</td>
+                    <td style="padding: 10px; text-align: center; border-bottom: 1px solid #eee;">{{ item.quantity_display }}</td>
+                    <td style="padding: 10px; text-align: center; border-bottom: 1px solid #eee;">{{ item.quantity }}</td>
+                    <td style="padding: 10px; text-align: right; border-bottom: 1px solid #eee;">{{ item.price }}</td>
+                    <td style="padding: 10px; text-align: right; border-bottom: 1px solid #eee;">{{ item.tax_rate }}%</td>
+                    <td style="padding: 10px; text-align: right; border-bottom: 1px solid #eee;">{{ item.total }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4"></td>
+                    <td style="padding: 10px; text-align: right;"><strong>Ar PVN {{ invoice.tax_rate }}% apliekamā summa:</strong></td>
+                    <td style="padding: 10px; text-align: right;">{{ invoice.subtotal }}</td>
+                </tr>
+                <tr>
+                    <td colspan="4"></td>
+                    <td style="padding: 10px; text-align: right;"><strong>Pievienotās vērtības nodoklis:</strong></td>
+                    <td style="padding: 10px; text-align: right;">{{ invoice.tax }}</td>
+                </tr>
+                <tr>
+                    <td colspan="4"></td>
+                    <td style="padding: 10px; text-align: right;"><strong>Summa kopā:</strong></td>
+                    <td style="padding: 10px; text-align: right;"><strong>{{ invoice.currency }} {{ invoice.total }}</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <p>
+            <a href="{{ site_url }}/d/invoice/{{ invoice.id }}" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 4px;">
+                Apskatīt rēķinu
+            </a>
+        </p>
+
+        {% if invoice.terms %}
+        <div style="margin-top: 30px; font-size: 12px;">
+            <strong>Apmaksas noteikumi:</strong><br>
+            {{ invoice.terms|safe }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

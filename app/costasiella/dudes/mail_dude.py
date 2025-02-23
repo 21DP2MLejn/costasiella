@@ -45,13 +45,16 @@ class MailDude:
                            (self.email_template, self.account.email))
             return
 
+        # Format sender email with organization name
+        from_email = f'"{organization.name}" <{organization.email}>' if organization.email else settings.DEFAULT_FROM_EMAIL
+
         # Send mail
         # https://docs.djangoproject.com/en/5.1/topics/email/#send-mail
         sent_messages = send_mail(
             subject=template['subject'],  # Later from template
             message=message,
             html_message=template['html_message'],
-            from_email=settings.DEFAULT_FROM_EMAIL,
+            from_email=from_email,
             recipient_list=[self.account.email],
             fail_silently=False
         )

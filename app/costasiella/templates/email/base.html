@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+        .email-wrapper {
+            width: 100%;
+            margin: 0;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        .email-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        @media only screen and (max-width: 600px) {
+            .email-content {
+                width: 100% !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-wrapper">
+        <div class="email-content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>
