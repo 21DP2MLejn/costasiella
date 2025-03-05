@@ -39,6 +39,7 @@ class AccountSubscription(models.Model):
     registration_fee_paid = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
+    active = models.BooleanField(default=True)  #Check if the subscription is active
 
     def __str__(self):
         return self.organization_subscription.name + ' [' + str(self.date_start) + ']'

@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 import os
 from celery import Celery
+from celery.schedules import crontab
 # from celery.signals import setup_logging  # noqa
 
 # Set the default Django settings module for the 'celery' program.
@@ -29,3 +30,12 @@ celery_app.autodiscover_tasks()
 @celery_app.task(bind=True)
 def debug_task(self):
     print('Request: {0!r}'.format(self.request))
+
+
+
+CELERY_BEAT_SCHEDULE = {
+    'send-invoice-notifications-every-1st': {
+        'task': 'costasiella.tasks.send_monthly_invoice_notifications',
+        'schedule': crontab(day_of_month=1, hour=9, minute=0),  # Runs at 9:00 AM on the 1st of each month
+    },
+}

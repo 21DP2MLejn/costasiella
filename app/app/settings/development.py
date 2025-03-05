@@ -85,9 +85,9 @@ MIDDLEWARE = [
 ]
 
 # Vault configuration
-VAULT_ADDR = "http://localhost:8200" 
-VAULT_TOKEN = "hvs.GGxVJCtFULelpUu8dxbp3gOu"      
-VAULT_TRANSIT_KEY = "costasiella"    
+VAULT_ADDR = 
+VAULT_TOKEN =       
+VAULT_TRANSIT_KEY =    
 
 # Django-defender settings
 DEFENDER_REDIS_URL = None  # Add this line
@@ -109,5 +109,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'pulsefitnessauto@gmail.com'  # Your Gmail address
-EMAIL_HOST_PASSWORD = 'fiag wpjh knbe zsql'  # Gmail App Password
+EMAIL_HOST_USER =   # Your Gmail address
+EMAIL_HOST_PASSWORD =  # Gmail App Password
