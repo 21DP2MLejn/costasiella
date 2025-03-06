@@ -1,0 +1,11 @@
+mutation UpdateMollieApiKey {
+  updateSystemSetting(input: {
+    setting: "integration_mollie_api_key",
+    value: "test_stMBnq9xJQhVCJhNUGCJN24zxW2TkD"
+  }) {
+    systemSetting {
+      setting
+      value
+    }
+  }
+}

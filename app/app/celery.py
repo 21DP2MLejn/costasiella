@@ -31,11 +31,3 @@ celery_app.autodiscover_tasks()
 def debug_task(self):
     print('Request: {0!r}'.format(self.request))
 
-
-
-CELERY_BEAT_SCHEDULE = {
-    'send-invoice-notifications-every-1st': {
-        'task': 'costasiella.tasks.send_monthly_invoice_notifications',
-        'schedule': crontab(day_of_month=1, hour=9, minute=0),  # Runs at 9:00 AM on the 1st of each month
-    },
-}

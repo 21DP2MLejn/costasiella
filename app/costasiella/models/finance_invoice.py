@@ -64,37 +64,6 @@ class FinanceInvoice(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 
-    is_generated = models.BooleanField(default=False)  # Track if the invoice has been generated
-    generated_at = models.DateTimeField(null=True, blank=True)  # Track when the invoice was generated
-
-    @classmethod
-    def generate_invoices(cls):
-        from .account_subscription import AccountSubscription
-        from .business import Business  # Import the Business model
-        from .finance_invoice_group import FinanceInvoiceGroup  # Import the FinanceInvoiceGroup model
-
-        # Get the first business instance or filter as needed
-        business_instance = Business.objects.first()  # Adjust this logic as necessary
-
-        # Fetch active subscriptions
-        active_subscriptions = AccountSubscription.objects.filter(active=True)
-
-        for account_subscription in active_subscriptions:
-            # Retrieve or create the finance invoice group as needed
-            finance_invoice_group = FinanceInvoiceGroup.objects.first()  # Adjust this logic as necessary
-
-            # Create the invoice using the account_subscription details
-            invoice = cls.objects.create(
-                account=account_subscription.account,  # Reference the account field
-                business=business_instance,  # Use the hardcoded business instance
-                finance_invoice_group=finance_invoice_group,  # Reference the finance invoice group
-                finance_payment_method=account_subscription.finance_payment_method,
-                status='SENT',
-                is_generated=True,
-                generated_at=timezone.now()
-            )
-            invoice.send_notification_email()  # Optionally send email notification
-
     def send_notification_email(self):
         """
         Send invoice notification email
@@ -110,6 +79,35 @@ class FinanceInvoice(models.Model):
         
         # Just call send() without parameters
         return mail_dude.send()
+
+    def send_reminder(invoice):
+        subject = f'Reminder: Invoice {invoice.id} is Overdue'
+        message = render_to_string('reminder_email_template.html', {
+            'invoice': invoice,
+            'membership_fee': invoice.finance_invoice_group.registration_fee,  # Adjust based on your model
+        })
+        
+        recipient_list = [invoice.account.email]  # Assuming the account has an email field
+
+        # Create PDF
+        pdf_file = create_invoice_pdf(invoice)
+
+        # Create email
+        email = EmailMessage(subject, message, 'from@example.com', recipient_list)
+        email.attach('invoice_{}.pdf'.format(invoice.id), pdf_file.getvalue(), 'application/pdf')
+        email.send()
+
+    def create_invoice_pdf(invoice):
+        buffer = BytesIO()
+        p = canvas.Canvas(buffer, pagesize=letter)
+        p.drawString(100, 750, f"Invoice ID: {invoice.id}")
+        p.drawString(100, 730, f"Membership Fee: {invoice.finance_invoice_group.registration_fee}")
+        p.drawString(100, 710, f"Due Date: {invoice.due_date}")
+        # Add more details as needed
+        p.showPage()
+        p.save()
+        buffer.seek(0)
+        return buffer
 
     def __str__(self):
         return model_string(self)
@@ -830,8 +828,3 @@ def handle_invoice_notification(sender, instance, created, **kwargs):
     if created and instance.status == 'SENT':
         instance.send_notification_email()
 
-@shared_task
-def send_monthly_invoice_notifications():
-    invoices = FinanceInvoice.objects.filter(status='SENT')
-    for invoice in invoices:
-        invoice.send_notification_email()

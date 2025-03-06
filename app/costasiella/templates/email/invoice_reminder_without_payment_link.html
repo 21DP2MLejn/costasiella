@@ -1,0 +1,69 @@
+<!-- invoice_reminder_without_payment_link.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .header {
+            margin-bottom: 20px;
+        }
+        .invoice-details {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .bank-details {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f0f7ff;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <p>Dear {{ invoice.account.full_name }},</p>
+        <p>We noticed that your invoice <strong>#{{ invoice.invoice_number }}</strong> is currently overdue. We kindly request you to make the payment at your earliest convenience.</p>
+    </div>
+    
+    <div class="invoice-details">
+        <p><strong>Invoice Number:</strong> {{ invoice.invoice_number }}</p>
+        <p><strong>Amount Due:</strong> {{ invoice.balance_display }}</p>
+        <p><strong>Due Date:</strong> {{ invoice.date_due|date:"F j, Y" }}</p>
+        <p><strong>Status:</strong> {{ invoice.status }}</p>
+    </div>
+    
+    <div class="bank-details">
+        <h3 style="margin-top: 0;">Bank Transfer Details</h3>
+        <p>Please make your payment via bank transfer using the following details:</p>
+        <p><strong>Bank Name:</strong> {{ bank_name }}</p>
+        <p><strong>Account Holder:</strong> {{ account_holder }}</p>
+        <p><strong>IBAN:</strong> {{ iban }}</p>
+        <p><strong>BIC/SWIFT:</strong> {{ bic }}</p>
+        <p><strong>Reference:</strong> Invoice #{{ invoice.invoice_number }}</p>
+        <p style="font-style: italic; margin-top: 10px; color: #e74c3c;"><strong>Important:</strong> Please include the invoice number in the payment reference to ensure your payment is correctly processed.</p>
+    </div>
+    
+    <p>If you have already made the payment, please disregard this reminder.</p>
+    
+    <div class="footer">
+        <p>If you have any questions or concerns regarding this invoice, please don't hesitate to contact us.</p>
+        <p>Thank you for your prompt attention to this matter.</p>
+        <p>Best regards,<br>{{ organization_name }}</p>
+    </div>
+</body>
+</html>

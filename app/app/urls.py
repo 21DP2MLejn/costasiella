@@ -19,6 +19,7 @@ from django.views.generic import TemplateView
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.shortcuts import redirect
 
 from graphene_django.views import GraphQLView
 from graphql_jwt.decorators import jwt_cookie
@@ -33,6 +34,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     # path('', login_required(TemplateView.as_view(template_name="backend.html")), name="home"),
     # path('', TemplateView.as_view(template_name="backend.html"), name="home"),
+    # Redirect root URL to the signup page
+    path('', lambda request: redirect('account_signup'), name="home"),
     path('d/admin/', admin.site.urls),
     path('d/admin/defender/', include('defender.urls')),  # defender admin
     # override of email view to add user profile context data

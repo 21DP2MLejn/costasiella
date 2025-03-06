@@ -20,6 +20,9 @@ if len(sys.argv) >= 1:
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'My Name <my_from_email@domain.com>'
 
+# Override allauth settings for development
+ACCOUNT_EMAIL_VERIFICATION = 'optional'  # Make email verification optional during development
+
 ##
 # CSRF Settings
 ##
@@ -85,9 +88,9 @@ MIDDLEWARE = [
 ]
 
 # Vault configuration
-VAULT_ADDR = 
-VAULT_TOKEN =       
-VAULT_TRANSIT_KEY =    
+VAULT_ADDR = "http://localhost:8200" 
+VAULT_TOKEN = "hvs.GGxVJCtFULelpUu8dxbp3gOu"      
+VAULT_TRANSIT_KEY = "costasiella"    
 
 # Django-defender settings
 DEFENDER_REDIS_URL = None  # Add this line
@@ -109,5 +112,52 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER =   # Your Gmail address
-EMAIL_HOST_PASSWORD =  # Gmail App Password
+EMAIL_HOST_USER = 'pulsefitnessauto@gmail.com'  # Your Gmail address
+EMAIL_HOST_PASSWORD = 'fiag wpjh knbe zsql'  # Gmail App Password
+
+# Detailed logging for debugging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(os.getcwd(), 'logs', 'debug.log'),
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'graphql': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'costasiella': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}

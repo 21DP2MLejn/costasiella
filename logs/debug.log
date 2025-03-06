@@ -1,0 +1,185 @@
+INFO 2025-03-06 14:32:52,269 autoreload 23535 140415277393728 Watching for file changes with StatReloader
+INFO 2025-03-06 14:33:14,107 autoreload 23670 140355292530496 Watching for file changes with StatReloader
+INFO 2025-03-06 14:33:45,842 basehttp 23670 140355102045952 "GET /d/static/logos/stock/logo_stock_backend.png HTTP/1.1" 200 4631
+INFO 2025-03-06 14:33:47,105 basehttp 23670 140355093653248 "POST /d/graphql/ HTTP/1.1" 200 5135
+INFO 2025-03-06 14:34:32,759 basehttp 23670 140355102045952 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 14:34:32,760 basehttp 23670 140355093653248 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 14:34:33,025 basehttp 23670 140355102045952 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-06 14:34:33,025 basehttp 23670 140355093653248 "POST /d/graphql/ HTTP/1.1" 200 230
+INFO 2025-03-06 14:34:33,133 basehttp 23670 140355093653248 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-06 14:34:33,177 basehttp 23670 140355102045952 "POST /d/graphql/ HTTP/1.1" 200 381
+INFO 2025-03-06 14:34:33,282 basehttp 23670 140355102045952 "GET /d/static/logos/stock/logo_stock_backend.png HTTP/1.1" 200 4631
+INFO 2025-03-06 14:34:33,381 basehttp 23670 140355076871936 "POST /d/graphql/ HTTP/1.1" 200 5135
+INFO 2025-03-06 14:34:39,337 basehttp 23670 140355076871936 "POST /d/graphql/ HTTP/1.1" 200 195
+INFO 2025-03-06 14:34:47,433 basehttp 23670 140355076871936 "POST /d/graphql/ HTTP/1.1" 200 195
+INFO 2025-03-06 14:37:06,664 autoreload 23670 140355292530496 /opt/backend/app/costasiella/dudes/mollie_dude.py changed, reloading.
+INFO 2025-03-06 14:37:08,185 autoreload 25024 140673968908096 Watching for file changes with StatReloader
+INFO 2025-03-06 14:37:27,159 autoreload 25185 140372347516736 Watching for file changes with StatReloader
+INFO 2025-03-06 14:38:40,871 basehttp 25185 140372231603968 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 14:38:40,872 basehttp 25185 140372223211264 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 14:38:42,168 basehttp 25185 140372223211264 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-06 14:38:42,179 basehttp 25185 140372231603968 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-06 14:38:42,247 basehttp 25185 140372231603968 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-06 14:38:42,333 basehttp 25185 140372231603968 "GET /d/static/logos/stock/logo_stock_backend.png HTTP/1.1" 200 4631
+INFO 2025-03-06 14:38:42,346 basehttp 25185 140372223211264 "POST /d/graphql/ HTTP/1.1" 200 5135
+ERROR 2025-03-06 14:38:44,628 finance_invoice_reminder 25185 140372223211264 Error sending reminder for invoice #INV20259: Missing authentication, or failed to authenticate
+INFO 2025-03-06 14:38:44,630 basehttp 25185 140372223211264 "POST /d/graphql/ HTTP/1.1" 200 225
+ERROR 2025-03-06 14:38:57,510 finance_invoice_reminder 25185 140372223211264 Error sending reminder for invoice #INV20259: Missing authentication, or failed to authenticate
+INFO 2025-03-06 14:38:57,511 basehttp 25185 140372223211264 "POST /d/graphql/ HTTP/1.1" 200 225
+ERROR 2025-03-06 14:39:02,498 finance_invoice_reminder 25185 140372223211264 Error sending reminder for invoice #INV20259: Missing authentication, or failed to authenticate
+INFO 2025-03-06 14:39:02,500 basehttp 25185 140372223211264 "POST /d/graphql/ HTTP/1.1" 200 225
+INFO 2025-03-06 14:40:05,397 autoreload 25185 140372347516736 /opt/backend/app/costasiella/schema/finance_invoice_reminder.py changed, reloading.
+INFO 2025-03-06 14:40:06,478 autoreload 25967 140433938130752 Watching for file changes with StatReloader
+INFO 2025-03-06 14:41:57,311 autoreload 25967 140433938130752 /opt/backend/app/costasiella/dudes/mollie_dude.py changed, reloading.
+INFO 2025-03-06 14:41:58,406 autoreload 26482 139751992518464 Watching for file changes with StatReloader
+INFO 2025-03-06 14:42:40,010 autoreload 26803 140464942491456 Watching for file changes with StatReloader
+INFO 2025-03-06 14:44:37,511 basehttp 26482 139751876605696 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 14:44:37,512 basehttp 26482 139751793358592 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 14:44:39,253 basehttp 26482 139751793358592 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-06 14:44:39,295 basehttp 26482 139751876605696 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-06 14:44:39,506 basehttp 26482 139751793358592 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-06 14:44:39,581 basehttp 26482 139751876605696 "POST /d/graphql/ HTTP/1.1" 200 381
+INFO 2025-03-06 14:44:39,670 basehttp 26482 139751876605696 "GET /d/static/logos/stock/logo_stock_backend.png HTTP/1.1" 200 4631
+INFO 2025-03-06 14:44:39,725 basehttp 26482 139751776839424 "POST /d/graphql/ HTTP/1.1" 200 5135
+INFO 2025-03-06 14:44:40,040 basehttp 26482 139751776839424 "GET /d/static/logos/stock/logo_stock_backend.png HTTP/1.1" 200 4631
+INFO 2025-03-06 14:44:40,247 basehttp 26482 139751776839424 "POST /d/graphql/ HTTP/1.1" 200 5135
+INFO 2025-03-06 14:44:41,525 basehttp 26482 139751776839424 "POST /d/graphql/ HTTP/1.1" 200 185
+INFO 2025-03-06 14:45:11,333 autoreload 26482 139751992518464 /opt/backend/app/costasiella/schema/finance_invoice_reminder.py changed, reloading.
+INFO 2025-03-06 14:45:12,519 autoreload 27530 140026430781248 Watching for file changes with StatReloader
+INFO 2025-03-06 14:47:04,376 autoreload 27530 140026430781248 /opt/backend/app/costasiella/dudes/mollie_dude.py changed, reloading.
+INFO 2025-03-06 14:47:06,475 autoreload 28198 140354627626816 Watching for file changes with StatReloader
+INFO 2025-03-06 14:48:26,188 basehttp 28198 140354511714048 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 14:48:26,198 basehttp 28198 140354511714048 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 14:48:27,431 basehttp 28198 140354430957312 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-06 14:48:27,449 basehttp 28198 140354511714048 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-06 14:48:27,511 basehttp 28198 140354511714048 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-06 14:48:27,616 basehttp 28198 140354430957312 "POST /d/graphql/ HTTP/1.1" 200 5135
+INFO 2025-03-06 14:48:29,301 finance_invoice_reminder 28198 140354430957312 User martinsadmin authorized to send invoice reminders
+ERROR 2025-03-06 14:48:29,307 mollie_dude 28198 140354430957312 Mollie API key appears to be a placeholder value
+ERROR 2025-03-06 14:48:29,307 finance_invoice_reminder 28198 140354430957312 Mollie API key not configured or invalid. Please configure a valid Mollie API key in system settings.
+INFO 2025-03-06 14:48:29,308 basehttp 28198 140354430957312 "POST /d/graphql/ HTTP/1.1" 200 267
+INFO 2025-03-06 14:49:25,956 autoreload 28198 140354627626816 /opt/backend/app/costasiella/schema/finance_invoice_reminder.py changed, reloading.
+INFO 2025-03-06 14:49:27,021 autoreload 29026 139890590885696 Watching for file changes with StatReloader
+INFO 2025-03-06 14:49:45,701 basehttp 29026 139890474972928 "POST /d/graphql/ HTTP/1.1" 200 5135
+INFO 2025-03-06 14:53:11,288 basehttp 29026 139890474972928 "POST /d/graphql/ HTTP/1.1" 200 5135
+INFO 2025-03-06 14:53:12,120 basehttp 29026 139890474972928 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 14:53:12,125 basehttp 29026 139890474972928 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 14:53:12,344 basehttp 29026 139890450851584 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-06 14:53:12,395 basehttp 29026 139890474972928 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-06 14:53:12,548 basehttp 29026 139890450851584 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-06 14:53:13,089 basehttp 29026 139890474972928 "POST /d/graphql/ HTTP/1.1" 200 381
+INFO 2025-03-06 14:53:13,137 basehttp 29026 139890238945024 "POST /d/graphql/ HTTP/1.1" 200 5135
+INFO 2025-03-06 14:53:18,342 basehttp 29026 139890238945024 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 14:53:18,441 basehttp 29026 139890474972928 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-06 14:53:18,496 basehttp 29026 139890238945024 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-06 14:53:18,563 basehttp 29026 139890238945024 "POST /d/graphql/ HTTP/1.1" 200 157
+INFO 2025-03-06 14:53:18,599 basehttp 29026 139890474972928 "POST /d/graphql/ HTTP/1.1" 200 222
+INFO 2025-03-06 14:53:19,139 basehttp 29026 139890474972928 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 14:53:19,284 basehttp 29026 139890474972928 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-06 14:53:19,293 basehttp 29026 139890238945024 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-06 14:53:19,409 basehttp 29026 139890238945024 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-06 14:53:19,510 basehttp 29026 139890474972928 "POST /d/graphql/ HTTP/1.1" 200 5135
+INFO 2025-03-06 14:53:21,568 basehttp 29026 139890474972928 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 14:53:21,575 basehttp 29026 139890474972928 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 14:53:21,687 basehttp 29026 139890238945024 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-06 14:53:21,695 basehttp 29026 139890474972928 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-06 14:53:21,802 basehttp 29026 139890474972928 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-06 14:53:21,898 basehttp 29026 139890238945024 "POST /d/graphql/ HTTP/1.1" 200 5135
+INFO 2025-03-06 14:53:25,589 basehttp 29026 139890238945024 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 14:53:25,593 basehttp 29026 139890238945024 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 14:53:25,692 basehttp 29026 139890474972928 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-06 14:53:25,700 basehttp 29026 139890238945024 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-06 14:53:25,808 basehttp 29026 139890238945024 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-06 14:53:25,918 basehttp 29026 139890474972928 "POST /d/graphql/ HTTP/1.1" 200 5135
+INFO 2025-03-06 14:53:27,855 basehttp 29026 139890474972928 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 14:53:27,973 basehttp 29026 139890238945024 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-06 14:53:27,979 basehttp 29026 139890474972928 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-06 14:53:28,017 basehttp 29026 139890474972928 "POST /d/graphql/ HTTP/1.1" 200 157
+INFO 2025-03-06 14:53:28,075 basehttp 29026 139890238945024 "POST /d/graphql/ HTTP/1.1" 200 222
+INFO 2025-03-06 14:53:29,269 basehttp 29026 139890238945024 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 14:53:29,375 basehttp 29026 139890474972928 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-06 14:53:29,380 basehttp 29026 139890238945024 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-06 14:53:29,488 basehttp 29026 139890238945024 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-06 14:53:29,574 basehttp 29026 139890474972928 "POST /d/graphql/ HTTP/1.1" 200 5135
+INFO 2025-03-06 14:56:48,061 autoreload 29026 139890590885696 /opt/backend/app/costasiella/schema/finance_invoice_reminder.py changed, reloading.
+INFO 2025-03-06 14:56:50,815 autoreload 31550 140249159022400 Watching for file changes with StatReloader
+INFO 2025-03-06 14:56:53,065 basehttp 31550 140249043109632 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 14:56:53,072 basehttp 31550 140249043109632 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 14:56:53,966 basehttp 31550 140249034716928 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-06 14:56:53,981 basehttp 31550 140249043109632 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-06 14:56:54,030 basehttp 31550 140249043109632 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-06 14:56:54,113 basehttp 31550 140249034716928 "POST /d/graphql/ HTTP/1.1" 200 5135
+INFO 2025-03-06 14:56:55,155 finance_invoice_reminder 31550 140249034716928 User martinsadmin authorized to send invoice reminders
+ERROR 2025-03-06 14:56:55,160 mollie_dude 31550 140249034716928 Mollie API key appears to be a placeholder value
+ERROR 2025-03-06 14:56:55,160 finance_invoice_reminder 31550 140249034716928 Mollie API key not configured or invalid. Please configure a valid Mollie API key in system settings.
+INFO 2025-03-06 14:56:55,161 basehttp 31550 140249034716928 "POST /d/graphql/ HTTP/1.1" 200 267
+INFO 2025-03-06 15:00:21,648 basehttp 31550 140249034716928 "GET /d/graphql/?vscodeBrowserReqId=1741273221623 HTTP/1.1" 200 2124
+INFO 2025-03-06 15:04:12,073 basehttp 31550 140249034716928 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 15:04:12,084 basehttp 31550 140249034716928 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 15:04:12,234 basehttp 31550 140249034716928 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-06 15:04:12,274 basehttp 31550 140249043109632 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-06 15:04:12,357 basehttp 31550 140249034716928 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-06 15:04:12,383 basehttp 31550 140249043109632 "POST /d/graphql/ HTTP/1.1" 200 381
+INFO 2025-03-06 15:04:12,519 basehttp 31550 140248801605376 "POST /d/graphql/ HTTP/1.1" 200 5135
+INFO 2025-03-06 15:04:12,736 basehttp 31550 140248801605376 "POST /d/graphql/ HTTP/1.1" 200 5135
+INFO 2025-03-06 15:04:14,069 finance_invoice_reminder 31550 140248801605376 User martinsadmin authorized to send invoice reminders
+INFO 2025-03-06 15:04:14,075 mollie_dude 31550 140248801605376 Using test Mollie API key: test_**************************2TkD
+INFO 2025-03-06 15:04:14,075 finance_invoice_reminder 31550 140248801605376 Using Mollie API key format: *******************************2TkD
+ERROR 2025-03-06 15:04:14,279 finance_invoice_reminder 31550 140248801605376 Mollie API authentication error: Missing authentication, or failed to authenticate
+INFO 2025-03-06 15:04:14,280 basehttp 31550 140248801605376 "POST /d/graphql/ HTTP/1.1" 200 258
+INFO 2025-03-06 15:05:55,198 autoreload 31550 140249159022400 /opt/backend/app/costasiella/schema/finance_invoice_reminder.py changed, reloading.
+INFO 2025-03-06 15:05:56,341 autoreload 34140 139716540282688 Watching for file changes with StatReloader
+INFO 2025-03-06 15:08:52,441 autoreload 34140 139716540282688 /opt/backend/app/costasiella/dudes/mollie_dude.py changed, reloading.
+INFO 2025-03-06 15:08:53,336 autoreload 34997 140065041966912 Watching for file changes with StatReloader
+INFO 2025-03-06 15:10:25,316 basehttp 34997 140064856209152 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 15:10:25,321 basehttp 34997 140064856209152 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 15:10:26,239 basehttp 34997 140064847816448 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-06 15:10:26,245 basehttp 34997 140064856209152 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-06 15:10:26,290 basehttp 34997 140064847816448 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-06 15:10:26,302 basehttp 34997 140064856209152 "POST /d/graphql/ HTTP/1.1" 200 381
+INFO 2025-03-06 15:10:26,432 basehttp 34997 140064826578688 "POST /d/graphql/ HTTP/1.1" 200 5135
+INFO 2025-03-06 15:10:26,643 basehttp 34997 140064826578688 "POST /d/graphql/ HTTP/1.1" 200 5135
+INFO 2025-03-06 15:10:27,883 finance_invoice_reminder 34997 140064826578688 User martinsadmin authorized to send invoice reminders
+INFO 2025-03-06 15:10:27,887 mollie_dude 34997 140064826578688 Using test Mollie API key: test_**************************2TkD
+INFO 2025-03-06 15:10:27,887 mollie_dude 34997 140064826578688 Mollie client initialized with test API key
+INFO 2025-03-06 15:10:27,887 finance_invoice_reminder 34997 140064826578688 Using Mollie API key format: *******************************2TkD
+ERROR 2025-03-06 15:10:28,072 finance_invoice_reminder 34997 140064826578688 Mollie API authentication error: Missing authentication, or failed to authenticate
+INFO 2025-03-06 15:10:28,073 basehttp 34997 140064826578688 "POST /d/graphql/ HTTP/1.1" 200 248
+INFO 2025-03-06 15:16:15,279 autoreload 34997 140065041966912 /opt/backend/app/costasiella/schema/finance_invoice_reminder.py changed, reloading.
+INFO 2025-03-06 15:16:17,403 autoreload 36993 140225674897216 Watching for file changes with StatReloader
+INFO 2025-03-06 15:19:49,379 autoreload 36993 140225674897216 /opt/backend/app/costasiella/dudes/mollie_dude.py changed, reloading.
+INFO 2025-03-06 15:19:50,580 autoreload 38032 139675811493696 Watching for file changes with StatReloader
+INFO 2025-03-06 15:20:19,781 autoreload 38032 139675811493696 /opt/backend/app/costasiella/dudes/mollie_dude.py changed, reloading.
+INFO 2025-03-06 15:20:20,641 autoreload 38285 139721508087616 Watching for file changes with StatReloader
+INFO 2025-03-06 15:20:55,638 basehttp 38285 139721324885760 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 15:20:55,638 basehttp 38285 139721316493056 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 15:20:57,149 basehttp 38285 139721316493056 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-06 15:20:57,176 basehttp 38285 139721324885760 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-06 15:20:57,266 basehttp 38285 139721316493056 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-06 15:20:57,308 basehttp 38285 139721324885760 "POST /d/graphql/ HTTP/1.1" 200 381
+INFO 2025-03-06 15:20:57,353 basehttp 38285 139721292371712 "POST /d/graphql/ HTTP/1.1" 200 5135
+INFO 2025-03-06 15:20:57,388 basehttp 38285 139721292371712 "GET /d/static/logos/stock/logo_stock_backend.png HTTP/1.1" 200 4631
+INFO 2025-03-06 15:20:57,611 basehttp 38285 139721292371712 "GET /d/static/logos/stock/logo_stock_backend.png HTTP/1.1" 200 4631
+INFO 2025-03-06 15:20:57,802 basehttp 38285 139721292371712 "POST /d/graphql/ HTTP/1.1" 200 5135
+INFO 2025-03-06 15:20:59,592 finance_invoice_reminder 38285 139721292371712 User martinsadmin authorized to send invoice reminders
+INFO 2025-03-06 15:20:59,600 mollie_dude 38285 139721292371712 Using test Mollie API key: test_**************************2TkD
+ERROR 2025-03-06 15:20:59,789 mollie_dude 38285 139721292371712 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-06 15:20:59,789 mollie_dude 38285 139721292371712 Your API key may not have sufficient permissions
+WARNING 2025-03-06 15:20:59,790 finance_invoice_reminder 38285 139721292371712 Mollie API key not configured or invalid. Continuing without payment links.
+INFO 2025-03-06 15:20:59,793 finance_invoice_reminder 38285 139721292371712 Skipping payment link generation for invoice #INV20259 - Mollie integration disabled
+INFO 2025-03-06 15:20:59,814 finance_invoice_reminder 38285 139721292371712 Using bank transfer template for invoice #INV20259
+INFO 2025-03-06 15:21:01,367 basehttp 38285 139721292371712 "POST /d/graphql/ HTTP/1.1" 200 224
+INFO 2025-03-06 15:22:38,475 basehttp 38285 139721292371712 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 15:22:38,483 basehttp 38285 139721292371712 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-06 15:22:38,739 basehttp 38285 139721324885760 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-06 15:22:38,765 basehttp 38285 139721292371712 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-06 15:22:38,877 basehttp 38285 139721292371712 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-06 15:22:39,034 basehttp 38285 139721324885760 "POST /d/graphql/ HTTP/1.1" 200 5135
+INFO 2025-03-06 15:22:40,319 finance_invoice_reminder 38285 139721324885760 User martinsadmin authorized to send invoice reminders
+INFO 2025-03-06 15:22:40,325 mollie_dude 38285 139721324885760 Using test Mollie API key: test_**************************2TkD
+ERROR 2025-03-06 15:22:40,491 mollie_dude 38285 139721324885760 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-06 15:22:40,491 mollie_dude 38285 139721324885760 Your API key may not have sufficient permissions
+WARNING 2025-03-06 15:22:40,491 finance_invoice_reminder 38285 139721324885760 Mollie API key not configured or invalid. Continuing without payment links.
+INFO 2025-03-06 15:22:40,495 finance_invoice_reminder 38285 139721324885760 Skipping payment link generation for invoice #INV20259 - Mollie integration disabled
+INFO 2025-03-06 15:22:40,515 finance_invoice_reminder 38285 139721324885760 Using bank transfer template for invoice #INV20259
+INFO 2025-03-06 15:22:41,397 basehttp 38285 139721324885760 "POST /d/graphql/ HTTP/1.1" 200 224
