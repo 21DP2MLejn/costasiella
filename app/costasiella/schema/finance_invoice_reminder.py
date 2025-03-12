@@ -29,6 +29,170 @@ class SendInvoiceReminderResultType(graphene.ObjectType):
     count = graphene.Int()
     success = graphene.Boolean()
     message = graphene.String()
+    invoice_id = graphene.ID()
+
+
+class SendInvoiceReminder(graphene.Mutation):
+    """
+    Mutation to send a reminder for a specific invoice
+    """
+    class Arguments:
+        id = graphene.ID(required=True, description='ID of the invoice')
+        attachPDF = graphene.Boolean(required=False, default_value=True, description='Whether to attach the invoice PDF')
+
+    result = graphene.Field(SendInvoiceReminderResultType)
+
+    @classmethod
+    def mutate(self, root, info, id, attachPDF=True):
+        # Initialize logging
+        logger = logging.getLogger(__name__)
+        
+        # Check user authentication and permissions
+        user = info.context.user
+        if not user.is_authenticated:
+            logger.error("User not authenticated when attempting to send invoice reminder")
+            raise GraphQLError(m.user_not_authenticated)
+
+        require_login_and_permission(user, 'costasiella.send_invoicereminder')
+
+        # Get invoice
+        rid = get_rid(id)
+        invoice = FinanceInvoice.objects.filter(id=rid.id).first()
+        if not invoice:
+            logger.error(f"Invoice with ID {id} not found")
+            raise GraphQLError(f"Invoice with ID {id} not found")
+
+        # Check if invoice is overdue
+        if invoice.status != 'OVERDUE':
+            logger.error(f"Invoice #{invoice.invoice_number} is not overdue")
+            return SendInvoiceReminder(
+                result=SendInvoiceReminderResultType(
+                    count=0,
+                    success=False,
+                    message=f"Invoice #{invoice.invoice_number} is not overdue",
+                    invoice_id=to_global_id('FinanceInvoiceNode', invoice.id)
+                )
+            )
+
+        # Initialize system settings
+        system_setting_dude = SystemSettingDude()
+        organization = system_setting_dude.get('system_organization_name') or 'Costasiella'
+
+        # Initialize Mollie client if needed
+        mollie_dude = MollieDude()
+        mollie_client = None
+        if mollie_dude.is_mollie_enabled():
+            try:
+                mollie_client = mollie_dude.get_mollie_client()
+            except Exception as e:
+                logger.error(f"Error initializing Mollie client: {str(e)}")
+                # Continue without Mollie integration
+
+        try:
+            # Determine which template to use
+            template_name = 'email/invoice_reminder_without_payment_link.html'
+            if mollie_client and invoice.finance_payment_method and invoice.finance_payment_method.id == 100:
+                # Use template with payment link for Mollie payments
+                template_name = 'email/invoice_reminder_with_payment_link.html'
+
+            # Prepare email context
+            # Generate invoice URL for the frontend
+            frontend_url = system_setting_dude.get('system_frontend_url') or 'http://localhost:3001'
+            invoice_url = f"{frontend_url}/finance/invoices/invoice/{to_global_id('FinanceInvoiceNode', invoice.id)}"
+            
+            context = {
+                'invoice': invoice,
+                'organization': organization,
+                'mollie_enabled': mollie_client is not None,
+                'account': invoice.account,
+                'business': invoice.business,
+                'invoice_url': invoice_url
+            }
+
+            # Add payment URL if using Mollie
+            if mollie_client and invoice.finance_payment_method and invoice.finance_payment_method.id == 100:
+                # Create payment URL
+                try:
+                    payment_url = mollie_dude.create_payment_for_invoice(invoice)
+                    context['payment_url'] = payment_url
+                except MollieError as me:
+                    logger.error(f"Mollie error creating payment for invoice #{invoice.invoice_number}: {str(me)}")
+                    # Fallback to template without payment link
+                    template_name = 'email/invoice_reminder_without_payment_link.html'
+
+            # Render email template
+            email_content = render_to_string(template_name, context)
+
+            # Send email
+            subject = f'Atgādinām, ka neesam saņēmuši rēķina #{invoice.invoice_number} apmaksu'
+            from_email = settings.DEFAULT_FROM_EMAIL
+            recipient_list = [invoice.account.email]
+
+            email = EmailMessage(
+                subject,
+                email_content,
+                from_email,
+                recipient_list,
+                headers={'Content-Type': 'text/html'}
+            )
+            email.content_subtype = "html"  # Main content is now text/html
+
+            # No need to attach PDF, as users can access the invoice via a unique link
+            # We'll include the link and basic information in the email template instead
+            logger.info(f"Invoice reminder being sent for invoice #{invoice.invoice_number} without PDF attachment")
+            logger.info(f"Email context: invoice_url={invoice_url}, recipient={invoice.account.email}")
+
+            # Send email
+            email.send()
+
+            return SendInvoiceReminder(
+                result=SendInvoiceReminderResultType(
+                    count=1,
+                    success=True,
+                    message=f"Successfully sent reminder for invoice #{invoice.invoice_number}",
+                    invoice_id=to_global_id('FinanceInvoiceNode', invoice.id)
+                )
+            )
+
+        except MollieError as me:
+            # Log specific Mollie errors with detailed information
+            logger.error(f"Mollie error for invoice #{invoice.invoice_number}: {str(me)}")
+
+            # Check for API key related errors
+            error_message = str(me).lower()
+            if 'invalid api key' in error_message or 'unauthorized' in error_message or 'authentication' in error_message:
+                logger.error("Mollie API key appears to be invalid or unauthorized. Please check your API key configuration.")
+                return SendInvoiceReminder(
+                    result=SendInvoiceReminderResultType(
+                        count=0,
+                        success=False,
+                        message="Please check your Mollie API key settings",
+                        invoice_id=to_global_id('FinanceInvoiceNode', invoice.id)
+                    )
+                )
+
+            return SendInvoiceReminder(
+                result=SendInvoiceReminderResultType(
+                    count=0,
+                    success=False,
+                    message=f"Mollie API Error: {str(me)}",
+                    invoice_id=to_global_id('FinanceInvoiceNode', invoice.id)
+                )
+            )
+
+        except Exception as e:
+            # Log other errors
+            logger.error(f"Error sending reminder for invoice #{invoice.invoice_number}: {str(e)}")
+            logger.error(f"Stack trace: {traceback.format_exc()}")
+
+            return SendInvoiceReminder(
+                result=SendInvoiceReminderResultType(
+                    count=0,
+                    success=False,
+                    message=f"Error: {str(e)}",
+                    invoice_id=to_global_id('FinanceInvoiceNode', invoice.id)
+                )
+            )
 
 
 class SendInvoiceReminders(graphene.Mutation):
@@ -301,6 +465,7 @@ class SendInvoiceReminders(graphene.Mutation):
 
 class FinanceInvoiceReminderMutation(graphene.ObjectType):
     send_invoice_reminders = SendInvoiceReminders.Field()
+    send_invoice_reminder = SendInvoiceReminder.Field()
 
 
 # Add the following import at the top of the file

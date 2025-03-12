@@ -183,3 +183,633 @@ WARNING 2025-03-06 15:22:40,491 finance_invoice_reminder 38285 139721324885760 M
 INFO 2025-03-06 15:22:40,495 finance_invoice_reminder 38285 139721324885760 Skipping payment link generation for invoice #INV20259 - Mollie integration disabled
 INFO 2025-03-06 15:22:40,515 finance_invoice_reminder 38285 139721324885760 Using bank transfer template for invoice #INV20259
 INFO 2025-03-06 15:22:41,397 basehttp 38285 139721324885760 "POST /d/graphql/ HTTP/1.1" 200 224
+INFO 2025-03-07 11:11:58,183 autoreload 38285 139721508087616 /opt/backend/app/costasiella/schema/finance_invoice_reminder.py changed, reloading.
+INFO 2025-03-07 11:12:03,007 autoreload 44768 140563435534144 Watching for file changes with StatReloader
+INFO 2025-03-10 12:24:17,359 basehttp 44768 140563252320000 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-10 12:24:22,816 basehttp 44768 140563252320000 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-10 12:24:22,918 basehttp 44768 140563243403008 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-10 12:24:23,042 basehttp 44768 140563252320000 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-10 12:24:23,363 basehttp 44768 140563219805952 "GET /d/static/logos/stock/logo_stock_backend.png HTTP/1.1" 304 0
+INFO 2025-03-10 12:24:23,406 basehttp 44768 140563243403008 "POST /d/graphql/ HTTP/1.1" 200 381
+INFO 2025-03-10 12:24:23,502 basehttp 44768 140563252320000 "POST /d/graphql/ HTTP/1.1" 200 5135
+INFO 2025-03-10 12:25:25,884 finance_invoice_reminder 44768 140563252320000 User martinsadmin authorized to send invoice reminders
+INFO 2025-03-10 12:25:25,931 mollie_dude 44768 140563252320000 Using test Mollie API key: test_**************************2TkD
+ERROR 2025-03-10 12:25:26,301 mollie_dude 44768 140563252320000 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-10 12:25:26,301 mollie_dude 44768 140563252320000 Your API key may not have sufficient permissions
+WARNING 2025-03-10 12:25:26,301 finance_invoice_reminder 44768 140563252320000 Mollie API key not configured or invalid. Continuing without payment links.
+INFO 2025-03-10 12:25:26,310 finance_invoice_reminder 44768 140563252320000 Skipping payment link generation for invoice #INV20259 - Mollie integration disabled
+INFO 2025-03-10 12:25:26,344 finance_invoice_reminder 44768 140563252320000 Using bank transfer template for invoice #INV20259
+ERROR 2025-03-10 12:25:26,977 finance_invoice_reminder 44768 140563252320000 Error sending reminder for invoice #INV20259: Invalid address; only Costasiella <My Name > could be parsed from "Costasiella <My Name <my_from_email@domain.com>>"
+ERROR 2025-03-10 12:25:26,982 finance_invoice_reminder 44768 140563252320000 Stack trace: Traceback (most recent call last):
+  File "/opt/backend/app/costasiella/schema/finance_invoice_reminder.py", line 268, in mutate
+    email.send()
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/django/core/mail/message.py", line 298, in send
+    return self.get_connection(fail_silently).send_messages([self])
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/django/core/mail/backends/smtp.py", line 131, in send_messages
+    sent = self._send(message)
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/django/core/mail/backends/smtp.py", line 143, in _send
+    from_email = sanitize_address(email_message.from_email, encoding)
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/django/core/mail/message.py", line 92, in sanitize_address
+    raise ValueError(
+ValueError: Invalid address; only Costasiella <My Name > could be parsed from "Costasiella <My Name <my_from_email@domain.com>>"
+
+INFO 2025-03-10 12:25:26,985 basehttp 44768 140563252320000 "POST /d/graphql/ HTTP/1.1" 200 225
+INFO 2025-03-10 12:25:41,313 autoreload 44768 140563435534144 /opt/backend/app/costasiella/schema/finance_invoice_reminder.py changed, reloading.
+INFO 2025-03-10 12:25:46,853 autoreload 51858 140522130122560 Watching for file changes with StatReloader
+INFO 2025-03-10 12:26:00,097 basehttp 51858 140521929701120 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-10 12:26:00,150 basehttp 51858 140521920784128 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-10 12:26:01,412 basehttp 51858 140521929701120 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-10 12:26:01,451 basehttp 51858 140521920784128 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-10 12:26:01,645 basehttp 51858 140521920784128 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-10 12:26:01,730 basehttp 51858 140521929701120 "POST /d/graphql/ HTTP/1.1" 200 787
+INFO 2025-03-10 12:26:04,665 finance_invoice_reminder 51858 140521929701120 User martinsadmin authorized to send invoice reminders
+INFO 2025-03-10 12:26:04,681 mollie_dude 51858 140521929701120 Using test Mollie API key: test_**************************2TkD
+ERROR 2025-03-10 12:26:04,909 mollie_dude 51858 140521929701120 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-10 12:26:04,911 mollie_dude 51858 140521929701120 Your API key may not have sufficient permissions
+WARNING 2025-03-10 12:26:04,912 finance_invoice_reminder 51858 140521929701120 Mollie API key not configured or invalid. Continuing without payment links.
+INFO 2025-03-10 12:26:04,933 finance_invoice_reminder 51858 140521929701120 Skipping payment link generation for invoice #INV20259 - Mollie integration disabled
+INFO 2025-03-10 12:26:04,972 finance_invoice_reminder 51858 140521929701120 Using bank transfer template for invoice #INV20259
+INFO 2025-03-10 12:26:06,464 basehttp 51858 140521929701120 "POST /d/graphql/ HTTP/1.1" 200 224
+INFO 2025-03-10 12:29:25,598 basehttp 51858 140521929701120 "POST /d/graphql/ HTTP/1.1" 200 787
+INFO 2025-03-10 12:35:48,185 basehttp 51858 140521929701120 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-10 12:35:48,225 basehttp 51858 140521929701120 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-10 12:35:49,370 basehttp 51858 140521920784128 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-10 12:35:49,727 basehttp 51858 140521929701120 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-10 12:35:50,905 basehttp 51858 140521920784128 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-10 12:35:51,018 basehttp 51858 140521929701120 "POST /d/graphql/ HTTP/1.1" 200 381
+INFO 2025-03-10 12:35:51,028 basehttp 51858 140522014209792 "POST /d/graphql/ HTTP/1.1" 200 787
+INFO 2025-03-10 12:35:51,460 basehttp 51858 140522014209792 "POST /d/graphql/ HTTP/1.1" 200 787
+WARNING 2025-03-10 12:35:53,863 log 51858 140522014209792 Bad Request: /d/graphql/
+WARNING 2025-03-10 12:35:53,864 basehttp 51858 140522014209792 "POST /d/graphql/ HTTP/1.1" 400 160
+INFO 2025-03-10 12:36:47,786 basehttp 51858 140522014209792 "GET /d/admin/costasiella/financeinvoice/add/ HTTP/1.1" 200 34544
+INFO 2025-03-10 12:36:48,408 basehttp 51858 140521929701120 "GET /d/static/admin/css/dark_mode.css HTTP/1.1" 200 796
+INFO 2025-03-10 12:36:48,418 basehttp 51858 140521920784128 "GET /d/static/admin/css/nav_sidebar.css HTTP/1.1" 200 2619
+INFO 2025-03-10 12:36:48,420 basehttp 51858 140522014209792 "GET /d/static/admin/css/base.css HTTP/1.1" 200 20344
+INFO 2025-03-10 12:36:48,523 basehttp 51858 140521920784128 "GET /d/static/admin/css/forms.css HTTP/1.1" 200 8944
+INFO 2025-03-10 12:36:48,526 basehttp 51858 140522014209792 "GET /d/static/admin/css/responsive.css HTTP/1.1" 200 18854
+INFO 2025-03-10 12:36:48,556 basehttp 51858 140522014209792 "GET /d/static/admin/css/fonts.css HTTP/1.1" 200 423
+INFO 2025-03-10 12:36:48,569 basehttp 51858 140521929701120 "GET /d/admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-03-10 12:36:48,629 basehttp 51858 140521929701120 "GET /d/static/admin/css/widgets.css HTTP/1.1" 200 11297
+INFO 2025-03-10 12:36:48,707 basehttp 51858 140522014209792 "GET /d/static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 288580
+INFO 2025-03-10 12:36:49,032 basehttp 51858 140522014209792 "GET /d/static/admin/js/calendar.js HTTP/1.1" 200 8466
+INFO 2025-03-10 12:36:49,040 basehttp 51858 140521929701120 "GET /d/static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-03-10 12:36:49,058 basehttp 51858 140521920784128 "GET /d/static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19379
+INFO 2025-03-10 12:36:49,059 basehttp 51858 140521903216384 "GET /d/static/admin/js/core.js HTTP/1.1" 200 5698
+INFO 2025-03-10 12:36:49,253 basehttp 51858 140521903216384 "GET /d/static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 8985
+INFO 2025-03-10 12:36:49,258 basehttp 51858 140521920784128 "GET /d/static/admin/js/actions.js HTTP/1.1" 200 7872
+INFO 2025-03-10 12:36:49,476 basehttp 51858 140522014209792 "GET /d/static/admin/js/urlify.js HTTP/1.1" 200 7902
+INFO 2025-03-10 12:36:49,494 basehttp 51858 140521920784128 "GET /d/static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-03-10 12:36:49,613 basehttp 51858 140521903216384 "GET /d/static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 232381
+INFO 2025-03-10 12:36:49,996 basehttp 51858 140521903216384 "GET /d/static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-03-10 12:36:49,998 basehttp 51858 140521920784128 "GET /d/static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-03-10 12:36:50,033 basehttp 51858 140521920784128 "GET /d/static/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
+INFO 2025-03-10 12:36:50,036 basehttp 51858 140521903216384 "GET /d/static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-03-10 12:36:50,049 basehttp 51858 140521903216384 "GET /d/static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-03-10 12:36:50,069 basehttp 51858 140521903216384 "GET /d/static/admin/js/nav_sidebar.js HTTP/1.1" 200 3763
+INFO 2025-03-10 12:36:50,124 basehttp 51858 140521903216384 "GET /d/static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-03-10 12:36:50,202 basehttp 51858 140521903216384 "GET /d/static/admin/fonts/Roboto-Light-webfont.woff HTTP/1.1" 200 85692
+INFO 2025-03-10 12:36:50,231 basehttp 51858 140522014209792 "GET /d/static/admin/fonts/Roboto-Bold-webfont.woff HTTP/1.1" 200 86184
+INFO 2025-03-10 12:36:50,238 basehttp 51858 140521920784128 "GET /d/static/admin/fonts/Roboto-Regular-webfont.woff HTTP/1.1" 200 85876
+INFO 2025-03-10 12:36:51,287 basehttp 51858 140521920784128 "GET /d/static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+INFO 2025-03-10 12:36:56,691 autoreload 51858 140522130122560 /opt/backend/app/costasiella/schema/finance_invoice_reminder.py changed, reloading.
+INFO 2025-03-10 12:37:05,454 autoreload 55324 140240469407552 Watching for file changes with StatReloader
+INFO 2025-03-10 12:37:34,849 basehttp 55324 140240278779648 "POST /d/admin/costasiella/financeinvoice/add/ HTTP/1.1" 200 34893
+INFO 2025-03-10 12:37:35,154 basehttp 55324 140240278779648 "GET /d/static/admin/css/base.css HTTP/1.1" 200 20344
+INFO 2025-03-10 12:37:35,155 basehttp 55324 140240261994240 "GET /d/static/admin/css/nav_sidebar.css HTTP/1.1" 200 2619
+INFO 2025-03-10 12:37:35,157 basehttp 55324 140240270386944 "GET /d/static/admin/css/dark_mode.css HTTP/1.1" 200 796
+INFO 2025-03-10 12:37:35,173 basehttp 55324 140240270386944 "GET /d/static/admin/css/forms.css HTTP/1.1" 200 8944
+INFO 2025-03-10 12:37:35,184 basehttp 55324 140240261994240 "GET /d/static/admin/css/responsive.css HTTP/1.1" 200 18854
+INFO 2025-03-10 12:37:35,211 basehttp 55324 140240270386944 "GET /d/admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-03-10 12:37:35,248 basehttp 55324 140240270386944 "GET /d/static/admin/css/fonts.css HTTP/1.1" 200 423
+INFO 2025-03-10 12:37:35,278 basehttp 55324 140240261994240 "GET /d/static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 288580
+INFO 2025-03-10 12:37:35,393 basehttp 55324 140240270386944 "GET /d/static/admin/js/calendar.js HTTP/1.1" 200 8466
+INFO 2025-03-10 12:37:35,396 basehttp 55324 140240261994240 "GET /d/static/admin/css/widgets.css HTTP/1.1" 200 11297
+INFO 2025-03-10 12:37:35,422 basehttp 55324 140240261994240 "GET /d/static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-03-10 12:37:35,494 basehttp 55324 140240270386944 "GET /d/static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19379
+INFO 2025-03-10 12:37:35,497 basehttp 55324 140240261994240 "GET /d/static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 8985
+INFO 2025-03-10 12:37:35,499 basehttp 55324 140240278779648 "GET /d/static/admin/js/core.js HTTP/1.1" 200 5698
+INFO 2025-03-10 12:37:35,508 basehttp 55324 140240253601536 "GET /d/static/admin/js/actions.js HTTP/1.1" 200 7872
+INFO 2025-03-10 12:37:35,524 basehttp 55324 140240245208832 "GET /d/static/admin/js/urlify.js HTTP/1.1" 200 7902
+INFO 2025-03-10 12:37:35,574 basehttp 55324 140240278779648 "GET /d/static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-03-10 12:37:35,606 basehttp 55324 140240245208832 "GET /d/static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-03-10 12:37:35,627 basehttp 55324 140240278779648 "GET /d/static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 232381
+INFO 2025-03-10 12:37:35,641 basehttp 55324 140240253601536 "GET /d/static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-03-10 12:37:35,663 basehttp 55324 140240245208832 "GET /d/static/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
+INFO 2025-03-10 12:37:35,674 basehttp 55324 140240253601536 "GET /d/static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-03-10 12:37:35,715 basehttp 55324 140240253601536 "GET /d/static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-03-10 12:37:35,718 basehttp 55324 140240245208832 "GET /d/static/admin/js/nav_sidebar.js HTTP/1.1" 200 3763
+INFO 2025-03-10 12:37:35,785 basehttp 55324 140240245208832 "GET /d/static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-03-10 12:37:35,814 basehttp 55324 140240253601536 "GET /d/static/admin/fonts/Roboto-Regular-webfont.woff HTTP/1.1" 200 85876
+INFO 2025-03-10 12:37:35,826 basehttp 55324 140240278779648 "GET /d/static/admin/fonts/Roboto-Light-webfont.woff HTTP/1.1" 200 85692
+INFO 2025-03-10 12:37:35,827 basehttp 55324 140240261994240 "GET /d/static/admin/fonts/Roboto-Bold-webfont.woff HTTP/1.1" 200 86184
+INFO 2025-03-10 12:37:36,767 basehttp 55324 140240261994240 "GET /d/static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+INFO 2025-03-10 12:37:39,453 basehttp 55324 140240261994240 "POST /d/admin/costasiella/financeinvoice/add/ HTTP/1.1" 302 0
+INFO 2025-03-10 12:37:39,739 basehttp 55324 140240261994240 "GET /d/admin/costasiella/financeinvoice/ HTTP/1.1" 200 25783
+INFO 2025-03-10 12:37:39,991 basehttp 55324 140240261994240 "GET /d/static/admin/css/base.css HTTP/1.1" 200 20344
+INFO 2025-03-10 12:37:40,045 basehttp 55324 140240261994240 "GET /d/static/admin/css/dark_mode.css HTTP/1.1" 200 796
+INFO 2025-03-10 12:37:40,053 basehttp 55324 140240261994240 "GET /d/static/admin/css/nav_sidebar.css HTTP/1.1" 200 2619
+INFO 2025-03-10 12:37:40,110 basehttp 55324 140240261994240 "GET /d/static/admin/css/changelists.css HTTP/1.1" 200 6395
+INFO 2025-03-10 12:37:40,167 basehttp 55324 140240261994240 "GET /d/static/admin/css/responsive.css HTTP/1.1" 200 18854
+INFO 2025-03-10 12:37:40,241 basehttp 55324 140240261994240 "GET /d/static/admin/css/fonts.css HTTP/1.1" 200 423
+INFO 2025-03-10 12:37:40,290 basehttp 55324 140240261994240 "GET /d/admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-03-10 12:37:40,372 basehttp 55324 140240261994240 "GET /d/static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-03-10 12:37:40,375 basehttp 55324 140240278779648 "GET /d/static/admin/js/core.js HTTP/1.1" 200 5698
+INFO 2025-03-10 12:37:40,384 basehttp 55324 140240245208832 "GET /d/static/admin/js/urlify.js HTTP/1.1" 200 7902
+INFO 2025-03-10 12:37:40,392 basehttp 55324 140240270386944 "GET /d/static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 8985
+INFO 2025-03-10 12:37:40,400 basehttp 55324 140240261994240 "GET /d/static/admin/js/actions.js HTTP/1.1" 200 7872
+INFO 2025-03-10 12:37:40,419 basehttp 55324 140240278779648 "GET /d/static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-03-10 12:37:40,420 basehttp 55324 140240253601536 "GET /d/static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 288580
+INFO 2025-03-10 12:37:40,424 basehttp 55324 140240245208832 "GET /d/static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 232381
+INFO 2025-03-10 12:37:40,471 basehttp 55324 140240245208832 "GET /d/static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-03-10 12:37:40,538 basehttp 55324 140240245208832 "GET /d/static/admin/js/nav_sidebar.js HTTP/1.1" 200 3763
+INFO 2025-03-10 12:37:40,565 basehttp 55324 140240245208832 "GET /d/static/admin/js/filters.js HTTP/1.1" 200 966
+INFO 2025-03-10 12:37:40,591 basehttp 55324 140240245208832 "GET /d/static/admin/fonts/Roboto-Regular-webfont.woff HTTP/1.1" 200 85876
+INFO 2025-03-10 12:37:40,595 basehttp 55324 140240278779648 "GET /d/static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-03-10 12:37:40,598 basehttp 55324 140240253601536 "GET /d/static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-03-10 12:37:40,614 basehttp 55324 140240245208832 "GET /d/static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2025-03-10 12:37:40,661 basehttp 55324 140240245208832 "GET /d/static/admin/fonts/Roboto-Bold-webfont.woff HTTP/1.1" 200 86184
+INFO 2025-03-10 12:37:40,664 basehttp 55324 140240253601536 "GET /d/static/admin/fonts/Roboto-Light-webfont.woff HTTP/1.1" 200 85692
+INFO 2025-03-10 12:37:45,868 basehttp 55324 140240253601536 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-10 12:37:45,872 basehttp 55324 140240245208832 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-10 12:37:50,117 basehttp 55324 140240253601536 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-10 12:37:50,312 basehttp 55324 140240245208832 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-10 12:37:50,487 basehttp 55324 140240245208832 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-10 12:37:50,559 basehttp 55324 140240253601536 "POST /d/graphql/ HTTP/1.1" 200 1337
+INFO 2025-03-10 12:37:50,827 basehttp 55324 140240253601536 "GET /d/static/logos/stock/logo_stock_backend.png HTTP/1.1" 200 4631
+INFO 2025-03-10 12:38:06,715 autoreload 55324 140240469407552 /opt/backend/app/costasiella/schema/finance_invoice_reminder.py changed, reloading.
+INFO 2025-03-10 12:38:12,492 autoreload 55848 139746579158848 Watching for file changes with StatReloader
+INFO 2025-03-10 12:41:19,388 basehttp 55848 139746463246080 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-10 12:41:19,385 basehttp 55848 139746454853376 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-10 12:41:25,544 basehttp 55848 139746446460672 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-10 12:41:25,604 basehttp 55848 139746438067968 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-10 12:41:25,791 basehttp 55848 139746446460672 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-10 12:41:25,913 basehttp 55848 139746438067968 "POST /d/graphql/ HTTP/1.1" 200 381
+INFO 2025-03-10 12:41:25,917 basehttp 55848 139746446460672 "POST /d/graphql/ HTTP/1.1" 200 1337
+INFO 2025-03-10 12:41:26,008 basehttp 55848 139746438067968 "GET /d/static/logos/stock/logo_stock_backend.png HTTP/1.1" 200 4631
+INFO 2025-03-10 12:41:26,458 basehttp 55848 139746438067968 "GET /d/static/logos/stock/logo_stock_backend.png HTTP/1.1" 200 4631
+INFO 2025-03-10 12:41:26,882 basehttp 55848 139746438067968 "POST /d/graphql/ HTTP/1.1" 200 1337
+INFO 2025-03-10 13:16:05,855 basehttp 55848 139746446460672 "POST /d/graphql/ HTTP/1.1" 200 186
+INFO 2025-03-10 13:16:05,859 basehttp 55848 139746438067968 "POST /d/graphql/ HTTP/1.1" 200 186
+INFO 2025-03-10 13:16:47,545 autoreload 55848 139746579158848 /opt/backend/app/costasiella/dudes/mollie_dude.py changed, reloading.
+INFO 2025-03-10 13:16:52,984 autoreload 58880 140152116250432 Watching for file changes with StatReloader
+INFO 2025-03-10 13:17:23,958 autoreload 58880 140152116250432 /opt/backend/app/costasiella/dudes/mollie_dude.py changed, reloading.
+INFO 2025-03-10 13:17:26,338 autoreload 59105 139940794959680 Watching for file changes with StatReloader
+INFO 2025-03-10 13:17:47,776 autoreload 59105 139940794959680 /opt/backend/app/costasiella/dudes/mollie_dude.py changed, reloading.
+INFO 2025-03-10 13:17:49,634 autoreload 59316 139764138956608 Watching for file changes with StatReloader
+INFO 2025-03-10 13:18:38,873 basehttp 59316 139764023047936 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-10 13:18:38,878 basehttp 59316 139763940062976 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-10 13:18:41,507 basehttp 59316 139764023047936 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-10 13:18:41,595 basehttp 59316 139763940062976 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-10 13:18:41,935 basehttp 59316 139764023047936 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-10 13:18:42,000 basehttp 59316 139763940062976 "POST /d/graphql/ HTTP/1.1" 200 381
+INFO 2025-03-10 13:18:42,031 basehttp 59316 139763923281664 "POST /d/graphql/ HTTP/1.1" 200 1337
+INFO 2025-03-10 13:18:42,101 basehttp 59316 139763923281664 "GET /d/static/logos/stock/logo_stock_backend.png HTTP/1.1" 200 4631
+INFO 2025-03-10 13:18:42,313 basehttp 59316 139763923281664 "GET /d/static/logos/stock/logo_stock_backend.png HTTP/1.1" 200 4631
+INFO 2025-03-10 13:18:42,528 basehttp 59316 139763923281664 "POST /d/graphql/ HTTP/1.1" 200 1337
+INFO 2025-03-10 13:19:58,073 mollie_dude 59316 139763923281664 Using test Mollie API key: test_**************************2TkD
+ERROR 2025-03-10 13:19:58,296 mollie_dude 59316 139763923281664 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-10 13:19:58,297 mollie_dude 59316 139763923281664 Your API key may not have sufficient permissions
+ERROR 2025-03-10 13:19:58,318 finance_invoice_reminder 59316 139763923281664 Error sending reminder for invoice #INV202510: No module named 'costasiella.dudes.export_finance_invoice_dude'
+ERROR 2025-03-10 13:19:58,319 finance_invoice_reminder 59316 139763923281664 Stack trace: Traceback (most recent call last):
+  File "/opt/backend/app/costasiella/schema/finance_invoice_reminder.py", line 137, in mutate
+    from ..dudes.export_finance_invoice_dude import ExportFinanceInvoiceDude
+ModuleNotFoundError: No module named 'costasiella.dudes.export_finance_invoice_dude'
+
+INFO 2025-03-10 13:19:58,323 basehttp 59316 139763923281664 "POST /d/graphql/ HTTP/1.1" 200 277
+INFO 2025-03-10 13:20:07,552 mollie_dude 59316 139763923281664 Using test Mollie API key: test_**************************2TkD
+ERROR 2025-03-10 13:20:07,797 mollie_dude 59316 139763923281664 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-10 13:20:07,798 mollie_dude 59316 139763923281664 Your API key may not have sufficient permissions
+ERROR 2025-03-10 13:20:07,809 finance_invoice_reminder 59316 139763923281664 Error sending reminder for invoice #INV20259: No module named 'costasiella.dudes.export_finance_invoice_dude'
+ERROR 2025-03-10 13:20:07,810 finance_invoice_reminder 59316 139763923281664 Stack trace: Traceback (most recent call last):
+  File "/opt/backend/app/costasiella/schema/finance_invoice_reminder.py", line 137, in mutate
+    from ..dudes.export_finance_invoice_dude import ExportFinanceInvoiceDude
+ModuleNotFoundError: No module named 'costasiella.dudes.export_finance_invoice_dude'
+
+INFO 2025-03-10 13:20:07,813 basehttp 59316 139763923281664 "POST /d/graphql/ HTTP/1.1" 200 277
+INFO 2025-03-10 13:20:07,898 mollie_dude 59316 139763923281664 Using test Mollie API key: test_**************************2TkD
+ERROR 2025-03-10 13:20:08,064 mollie_dude 59316 139763923281664 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-10 13:20:08,065 mollie_dude 59316 139763923281664 Your API key may not have sufficient permissions
+ERROR 2025-03-10 13:20:08,076 finance_invoice_reminder 59316 139763923281664 Error sending reminder for invoice #INV202510: No module named 'costasiella.dudes.export_finance_invoice_dude'
+ERROR 2025-03-10 13:20:08,077 finance_invoice_reminder 59316 139763923281664 Stack trace: Traceback (most recent call last):
+  File "/opt/backend/app/costasiella/schema/finance_invoice_reminder.py", line 137, in mutate
+    from ..dudes.export_finance_invoice_dude import ExportFinanceInvoiceDude
+ModuleNotFoundError: No module named 'costasiella.dudes.export_finance_invoice_dude'
+
+INFO 2025-03-10 13:20:08,080 basehttp 59316 139763923281664 "POST /d/graphql/ HTTP/1.1" 200 277
+INFO 2025-03-10 13:21:13,692 autoreload 59316 139764138956608 /opt/backend/app/costasiella/schema/finance_invoice_reminder.py changed, reloading.
+INFO 2025-03-10 13:21:16,572 autoreload 60367 140210899404608 Watching for file changes with StatReloader
+INFO 2025-03-10 13:22:52,008 basehttp 60367 140210783491840 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-10 13:22:52,014 basehttp 60367 140210775099136 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-10 13:22:54,888 basehttp 60367 140210783491840 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-10 13:22:54,914 basehttp 60367 140210775099136 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-10 13:22:55,046 basehttp 60367 140210775099136 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-10 13:22:55,106 basehttp 60367 140210783491840 "POST /d/graphql/ HTTP/1.1" 200 1337
+INFO 2025-03-10 13:22:55,231 basehttp 60367 140210783491840 "GET /d/static/logos/stock/logo_stock_backend.png HTTP/1.1" 200 4631
+INFO 2025-03-10 13:22:56,706 mollie_dude 60367 140210783491840 Using test Mollie API key: test_**************************2TkD
+INFO 2025-03-10 13:22:56,773 mollie_dude 60367 140210775099136 Using test Mollie API key: test_**************************2TkD
+ERROR 2025-03-10 13:22:56,914 mollie_dude 60367 140210783491840 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-10 13:22:56,916 mollie_dude 60367 140210783491840 Your API key may not have sufficient permissions
+ERROR 2025-03-10 13:22:56,944 mollie_dude 60367 140210775099136 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-10 13:22:56,945 mollie_dude 60367 140210775099136 Your API key may not have sufficient permissions
+ERROR 2025-03-10 13:22:58,908 finance_invoice_reminder 60367 140210783491840 Error sending reminder for invoice #INV202510: cannot load library 'pango-1.0-0': pango-1.0-0: cannot open shared object file: No such file or directory.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'pango-1.0-0'
+ERROR 2025-03-10 13:22:58,988 finance_invoice_reminder 60367 140210783491840 Stack trace: Traceback (most recent call last):
+  File "/opt/backend/app/costasiella/schema/finance_invoice_reminder.py", line 138, in mutate
+    import weasyprint
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/__init__.py", line 336, in <module>
+    from .css import preprocess_stylesheet  # noqa isort:skip
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/css/__init__.py", line 25, in <module>
+    from . import computed_values, counters, media_queries
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/css/computed_values.py", line 9, in <module>
+    from ..text.ffi import ffi, pango, units_to_double
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/text/ffi.py", line 401, in <module>
+    pango = _dlopen(
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/text/ffi.py", line 385, in _dlopen
+    return ffi.dlopen(names[0])  # pragma: no cover
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 150, in dlopen
+    lib, function_cache = _make_ffi_library(self, name, flags)
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 832, in _make_ffi_library
+    backendlib = _load_backend_lib(backend, libname, flags)
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 827, in _load_backend_lib
+    raise OSError(msg)
+OSError: cannot load library 'pango-1.0-0': pango-1.0-0: cannot open shared object file: No such file or directory.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'pango-1.0-0'
+
+INFO 2025-03-10 13:22:58,994 basehttp 60367 140210783491840 "POST /d/graphql/ HTTP/1.1" 200 418
+ERROR 2025-03-10 13:23:00,491 finance_invoice_reminder 60367 140210775099136 Error sending reminder for invoice #INV20259: cannot load library 'pango-1.0-0': pango-1.0-0: cannot open shared object file: No such file or directory.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'pango-1.0-0'
+ERROR 2025-03-10 13:23:00,492 finance_invoice_reminder 60367 140210775099136 Stack trace: Traceback (most recent call last):
+  File "/opt/backend/app/costasiella/schema/finance_invoice_reminder.py", line 138, in mutate
+    import weasyprint
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/__init__.py", line 336, in <module>
+    from .css import preprocess_stylesheet  # noqa isort:skip
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/css/__init__.py", line 25, in <module>
+    from . import computed_values, counters, media_queries
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/css/computed_values.py", line 9, in <module>
+    from ..text.ffi import ffi, pango, units_to_double
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/text/ffi.py", line 401, in <module>
+    pango = _dlopen(
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/text/ffi.py", line 385, in _dlopen
+    return ffi.dlopen(names[0])  # pragma: no cover
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 150, in dlopen
+    lib, function_cache = _make_ffi_library(self, name, flags)
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 832, in _make_ffi_library
+    backendlib = _load_backend_lib(backend, libname, flags)
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 827, in _load_backend_lib
+    raise OSError(msg)
+OSError: cannot load library 'pango-1.0-0': pango-1.0-0: cannot open shared object file: No such file or directory.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'pango-1.0-0'
+
+INFO 2025-03-10 13:23:00,497 basehttp 60367 140210775099136 "POST /d/graphql/ HTTP/1.1" 200 418
+INFO 2025-03-10 13:23:05,916 finance_invoice_reminder 60367 140210775099136 User martinsadmin authorized to send invoice reminders
+INFO 2025-03-10 13:23:05,929 mollie_dude 60367 140210775099136 Using test Mollie API key: test_**************************2TkD
+ERROR 2025-03-10 13:23:06,100 mollie_dude 60367 140210775099136 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-10 13:23:06,100 mollie_dude 60367 140210775099136 Your API key may not have sufficient permissions
+WARNING 2025-03-10 13:23:06,100 finance_invoice_reminder 60367 140210775099136 Mollie API key not configured or invalid. Continuing without payment links.
+INFO 2025-03-10 13:23:06,108 finance_invoice_reminder 60367 140210775099136 Skipping payment link generation for invoice #INV20259 - Mollie integration disabled
+INFO 2025-03-10 13:23:06,165 finance_invoice_reminder 60367 140210775099136 Using bank transfer template for invoice #INV20259
+INFO 2025-03-10 13:23:07,487 finance_invoice_reminder 60367 140210775099136 Skipping payment link generation for invoice #INV202510 - Mollie integration disabled
+INFO 2025-03-10 13:23:07,529 finance_invoice_reminder 60367 140210775099136 Using bank transfer template for invoice #INV202510
+INFO 2025-03-10 13:23:08,455 basehttp 60367 140210775099136 "POST /d/graphql/ HTTP/1.1" 200 224
+INFO 2025-03-10 13:24:29,319 mollie_dude 60367 140210775099136 Using test Mollie API key: test_**************************2TkD
+INFO 2025-03-10 13:24:29,348 mollie_dude 60367 140210783491840 Using test Mollie API key: test_**************************2TkD
+ERROR 2025-03-10 13:24:29,546 mollie_dude 60367 140210783491840 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-10 13:24:29,546 mollie_dude 60367 140210783491840 Your API key may not have sufficient permissions
+ERROR 2025-03-10 13:24:29,574 mollie_dude 60367 140210775099136 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-10 13:24:29,577 mollie_dude 60367 140210775099136 Your API key may not have sufficient permissions
+ERROR 2025-03-10 13:24:32,643 finance_invoice_reminder 60367 140210783491840 Error sending reminder for invoice #INV20259: cannot load library 'pango-1.0-0': pango-1.0-0: cannot open shared object file: No such file or directory.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'pango-1.0-0'
+ERROR 2025-03-10 13:24:32,653 finance_invoice_reminder 60367 140210783491840 Stack trace: Traceback (most recent call last):
+  File "/opt/backend/app/costasiella/schema/finance_invoice_reminder.py", line 138, in mutate
+    import weasyprint
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/__init__.py", line 336, in <module>
+    from .css import preprocess_stylesheet  # noqa isort:skip
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/css/__init__.py", line 25, in <module>
+    from . import computed_values, counters, media_queries
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/css/computed_values.py", line 9, in <module>
+    from ..text.ffi import ffi, pango, units_to_double
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/text/ffi.py", line 401, in <module>
+    pango = _dlopen(
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/text/ffi.py", line 385, in _dlopen
+    return ffi.dlopen(names[0])  # pragma: no cover
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 150, in dlopen
+    lib, function_cache = _make_ffi_library(self, name, flags)
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 832, in _make_ffi_library
+    backendlib = _load_backend_lib(backend, libname, flags)
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 827, in _load_backend_lib
+    raise OSError(msg)
+OSError: cannot load library 'pango-1.0-0': pango-1.0-0: cannot open shared object file: No such file or directory.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'pango-1.0-0'
+
+INFO 2025-03-10 13:24:32,657 basehttp 60367 140210783491840 "POST /d/graphql/ HTTP/1.1" 200 418
+ERROR 2025-03-10 13:24:33,067 finance_invoice_reminder 60367 140210775099136 Error sending reminder for invoice #INV202510: name 'Document' is not defined
+ERROR 2025-03-10 13:24:33,068 finance_invoice_reminder 60367 140210775099136 Stack trace: Traceback (most recent call last):
+  File "/opt/backend/app/costasiella/schema/finance_invoice_reminder.py", line 146, in mutate
+    weasyprint.HTML(string=html).write_pdf(buffer)
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/__init__.py", line 198, in write_pdf
+    self.render(
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/__init__.py", line 143, in render
+    return Document._render(
+NameError: name 'Document' is not defined
+
+INFO 2025-03-10 13:24:33,070 basehttp 60367 140210775099136 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-10 13:24:45,136 mollie_dude 60367 140210775099136 Using test Mollie API key: test_**************************2TkD
+ERROR 2025-03-10 13:24:45,400 mollie_dude 60367 140210775099136 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-10 13:24:45,401 mollie_dude 60367 140210775099136 Your API key may not have sufficient permissions
+ERROR 2025-03-10 13:24:47,207 finance_invoice_reminder 60367 140210775099136 Error sending reminder for invoice #INV202510: cannot load library 'pango-1.0-0': pango-1.0-0: cannot open shared object file: No such file or directory.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'pango-1.0-0'
+ERROR 2025-03-10 13:24:47,208 finance_invoice_reminder 60367 140210775099136 Stack trace: Traceback (most recent call last):
+  File "/opt/backend/app/costasiella/schema/finance_invoice_reminder.py", line 138, in mutate
+    import weasyprint
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/__init__.py", line 336, in <module>
+    from .css import preprocess_stylesheet  # noqa isort:skip
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/css/__init__.py", line 25, in <module>
+    from . import computed_values, counters, media_queries
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/css/computed_values.py", line 9, in <module>
+    from ..text.ffi import ffi, pango, units_to_double
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/text/ffi.py", line 401, in <module>
+    pango = _dlopen(
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/text/ffi.py", line 385, in _dlopen
+    return ffi.dlopen(names[0])  # pragma: no cover
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 150, in dlopen
+    lib, function_cache = _make_ffi_library(self, name, flags)
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 832, in _make_ffi_library
+    backendlib = _load_backend_lib(backend, libname, flags)
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 827, in _load_backend_lib
+    raise OSError(msg)
+OSError: cannot load library 'pango-1.0-0': pango-1.0-0: cannot open shared object file: No such file or directory.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'pango-1.0-0'
+
+INFO 2025-03-10 13:24:47,212 basehttp 60367 140210775099136 "POST /d/graphql/ HTTP/1.1" 200 418
+INFO 2025-03-10 13:24:51,263 mollie_dude 60367 140210775099136 Using test Mollie API key: test_**************************2TkD
+ERROR 2025-03-10 13:24:51,474 mollie_dude 60367 140210775099136 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-10 13:24:51,475 mollie_dude 60367 140210775099136 Your API key may not have sufficient permissions
+ERROR 2025-03-10 13:24:53,083 finance_invoice_reminder 60367 140210775099136 Error sending reminder for invoice #INV202510: cannot load library 'pango-1.0-0': pango-1.0-0: cannot open shared object file: No such file or directory.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'pango-1.0-0'
+ERROR 2025-03-10 13:24:53,084 finance_invoice_reminder 60367 140210775099136 Stack trace: Traceback (most recent call last):
+  File "/opt/backend/app/costasiella/schema/finance_invoice_reminder.py", line 138, in mutate
+    import weasyprint
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/__init__.py", line 336, in <module>
+    from .css import preprocess_stylesheet  # noqa isort:skip
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/css/__init__.py", line 25, in <module>
+    from . import computed_values, counters, media_queries
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/css/computed_values.py", line 9, in <module>
+    from ..text.ffi import ffi, pango, units_to_double
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/text/ffi.py", line 401, in <module>
+    pango = _dlopen(
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/text/ffi.py", line 385, in _dlopen
+    return ffi.dlopen(names[0])  # pragma: no cover
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 150, in dlopen
+    lib, function_cache = _make_ffi_library(self, name, flags)
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 832, in _make_ffi_library
+    backendlib = _load_backend_lib(backend, libname, flags)
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 827, in _load_backend_lib
+    raise OSError(msg)
+OSError: cannot load library 'pango-1.0-0': pango-1.0-0: cannot open shared object file: No such file or directory.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'pango-1.0-0'
+
+INFO 2025-03-10 13:24:53,088 basehttp 60367 140210775099136 "POST /d/graphql/ HTTP/1.1" 200 418
+INFO 2025-03-10 13:24:55,459 mollie_dude 60367 140210775099136 Using test Mollie API key: test_**************************2TkD
+ERROR 2025-03-10 13:24:55,637 mollie_dude 60367 140210775099136 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-10 13:24:55,637 mollie_dude 60367 140210775099136 Your API key may not have sufficient permissions
+ERROR 2025-03-10 13:24:57,207 finance_invoice_reminder 60367 140210775099136 Error sending reminder for invoice #INV202510: cannot load library 'pango-1.0-0': pango-1.0-0: cannot open shared object file: No such file or directory.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'pango-1.0-0'
+ERROR 2025-03-10 13:24:57,208 finance_invoice_reminder 60367 140210775099136 Stack trace: Traceback (most recent call last):
+  File "/opt/backend/app/costasiella/schema/finance_invoice_reminder.py", line 138, in mutate
+    import weasyprint
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/__init__.py", line 336, in <module>
+    from .css import preprocess_stylesheet  # noqa isort:skip
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/css/__init__.py", line 25, in <module>
+    from . import computed_values, counters, media_queries
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/css/computed_values.py", line 9, in <module>
+    from ..text.ffi import ffi, pango, units_to_double
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/text/ffi.py", line 401, in <module>
+    pango = _dlopen(
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/text/ffi.py", line 385, in _dlopen
+    return ffi.dlopen(names[0])  # pragma: no cover
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 150, in dlopen
+    lib, function_cache = _make_ffi_library(self, name, flags)
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 832, in _make_ffi_library
+    backendlib = _load_backend_lib(backend, libname, flags)
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 827, in _load_backend_lib
+    raise OSError(msg)
+OSError: cannot load library 'pango-1.0-0': pango-1.0-0: cannot open shared object file: No such file or directory.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'pango-1.0-0'
+
+INFO 2025-03-10 13:24:57,213 basehttp 60367 140210775099136 "POST /d/graphql/ HTTP/1.1" 200 418
+INFO 2025-03-10 13:25:03,854 mollie_dude 60367 140210775099136 Using test Mollie API key: test_**************************2TkD
+ERROR 2025-03-10 13:25:04,111 mollie_dude 60367 140210775099136 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-10 13:25:04,112 mollie_dude 60367 140210775099136 Your API key may not have sufficient permissions
+ERROR 2025-03-10 13:25:05,621 finance_invoice_reminder 60367 140210775099136 Error sending reminder for invoice #INV202510: cannot load library 'pango-1.0-0': pango-1.0-0: cannot open shared object file: No such file or directory.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'pango-1.0-0'
+ERROR 2025-03-10 13:25:05,622 finance_invoice_reminder 60367 140210775099136 Stack trace: Traceback (most recent call last):
+  File "/opt/backend/app/costasiella/schema/finance_invoice_reminder.py", line 138, in mutate
+    import weasyprint
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/__init__.py", line 336, in <module>
+    from .css import preprocess_stylesheet  # noqa isort:skip
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/css/__init__.py", line 25, in <module>
+    from . import computed_values, counters, media_queries
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/css/computed_values.py", line 9, in <module>
+    from ..text.ffi import ffi, pango, units_to_double
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/text/ffi.py", line 401, in <module>
+    pango = _dlopen(
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/text/ffi.py", line 385, in _dlopen
+    return ffi.dlopen(names[0])  # pragma: no cover
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 150, in dlopen
+    lib, function_cache = _make_ffi_library(self, name, flags)
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 832, in _make_ffi_library
+    backendlib = _load_backend_lib(backend, libname, flags)
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 827, in _load_backend_lib
+    raise OSError(msg)
+OSError: cannot load library 'pango-1.0-0': pango-1.0-0: cannot open shared object file: No such file or directory.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'pango-1.0-0'
+
+INFO 2025-03-10 13:25:05,626 basehttp 60367 140210775099136 "POST /d/graphql/ HTTP/1.1" 200 418
+INFO 2025-03-10 13:25:14,371 mollie_dude 60367 140210775099136 Using test Mollie API key: test_**************************2TkD
+ERROR 2025-03-10 13:25:14,582 mollie_dude 60367 140210775099136 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-10 13:25:14,582 mollie_dude 60367 140210775099136 Your API key may not have sufficient permissions
+ERROR 2025-03-10 13:25:16,357 finance_invoice_reminder 60367 140210775099136 Error sending reminder for invoice #INV202510: cannot load library 'pango-1.0-0': pango-1.0-0: cannot open shared object file: No such file or directory.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'pango-1.0-0'
+ERROR 2025-03-10 13:25:16,359 finance_invoice_reminder 60367 140210775099136 Stack trace: Traceback (most recent call last):
+  File "/opt/backend/app/costasiella/schema/finance_invoice_reminder.py", line 138, in mutate
+    import weasyprint
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/__init__.py", line 336, in <module>
+    from .css import preprocess_stylesheet  # noqa isort:skip
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/css/__init__.py", line 25, in <module>
+    from . import computed_values, counters, media_queries
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/css/computed_values.py", line 9, in <module>
+    from ..text.ffi import ffi, pango, units_to_double
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/text/ffi.py", line 401, in <module>
+    pango = _dlopen(
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/text/ffi.py", line 385, in _dlopen
+    return ffi.dlopen(names[0])  # pragma: no cover
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 150, in dlopen
+    lib, function_cache = _make_ffi_library(self, name, flags)
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 832, in _make_ffi_library
+    backendlib = _load_backend_lib(backend, libname, flags)
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 827, in _load_backend_lib
+    raise OSError(msg)
+OSError: cannot load library 'pango-1.0-0': pango-1.0-0: cannot open shared object file: No such file or directory.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'pango-1.0-0'
+
+INFO 2025-03-10 13:25:16,365 basehttp 60367 140210775099136 "POST /d/graphql/ HTTP/1.1" 200 418
+INFO 2025-03-10 13:25:21,579 mollie_dude 60367 140210775099136 Using test Mollie API key: test_**************************2TkD
+ERROR 2025-03-10 13:25:21,851 mollie_dude 60367 140210775099136 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-10 13:25:21,852 mollie_dude 60367 140210775099136 Your API key may not have sufficient permissions
+ERROR 2025-03-10 13:25:23,551 finance_invoice_reminder 60367 140210775099136 Error sending reminder for invoice #INV20259: cannot load library 'pango-1.0-0': pango-1.0-0: cannot open shared object file: No such file or directory.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'pango-1.0-0'
+ERROR 2025-03-10 13:25:23,553 finance_invoice_reminder 60367 140210775099136 Stack trace: Traceback (most recent call last):
+  File "/opt/backend/app/costasiella/schema/finance_invoice_reminder.py", line 138, in mutate
+    import weasyprint
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/__init__.py", line 336, in <module>
+    from .css import preprocess_stylesheet  # noqa isort:skip
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/css/__init__.py", line 25, in <module>
+    from . import computed_values, counters, media_queries
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/css/computed_values.py", line 9, in <module>
+    from ..text.ffi import ffi, pango, units_to_double
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/text/ffi.py", line 401, in <module>
+    pango = _dlopen(
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/weasyprint/text/ffi.py", line 385, in _dlopen
+    return ffi.dlopen(names[0])  # pragma: no cover
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 150, in dlopen
+    lib, function_cache = _make_ffi_library(self, name, flags)
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 832, in _make_ffi_library
+    backendlib = _load_backend_lib(backend, libname, flags)
+  File "/home/swkmartins/.local/lib/python3.8/site-packages/cffi/api.py", line 827, in _load_backend_lib
+    raise OSError(msg)
+OSError: cannot load library 'pango-1.0-0': pango-1.0-0: cannot open shared object file: No such file or directory.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'pango-1.0-0'
+
+INFO 2025-03-10 13:25:23,556 basehttp 60367 140210775099136 "POST /d/graphql/ HTTP/1.1" 200 418
+INFO 2025-03-10 13:25:57,468 autoreload 60367 140210899404608 /opt/backend/app/costasiella/schema/finance_invoice_reminder.py changed, reloading.
+INFO 2025-03-10 13:26:01,044 autoreload 62462 140417788737344 Watching for file changes with StatReloader
+INFO 2025-03-10 13:26:42,855 autoreload 62462 140417788737344 /opt/backend/app/costasiella/views/export_finance_invoice.py changed, reloading.
+INFO 2025-03-10 13:26:44,895 autoreload 62714 139885901891392 Watching for file changes with StatReloader
+INFO 2025-03-12 12:25:04,007 basehttp 62714 139885777585920 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-12 12:25:04,014 basehttp 62714 139885785978624 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-12 12:25:09,692 basehttp 62714 139885777585920 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-12 12:25:09,750 basehttp 62714 139885769193216 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-12 12:25:09,907 basehttp 62714 139885777585920 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-12 12:25:10,057 basehttp 62714 139885769193216 "POST /d/graphql/ HTTP/1.1" 200 381
+INFO 2025-03-12 12:25:10,062 basehttp 62714 139885777585920 "POST /d/graphql/ HTTP/1.1" 200 1337
+INFO 2025-03-12 12:25:10,168 basehttp 62714 139885777585920 "GET /d/static/logos/stock/logo_stock_backend.png HTTP/1.1" 200 4631
+INFO 2025-03-12 12:25:10,339 basehttp 62714 139885777585920 "GET /d/static/logos/stock/logo_stock_backend.png HTTP/1.1" 200 4631
+INFO 2025-03-12 12:25:10,559 basehttp 62714 139885777585920 "POST /d/graphql/ HTTP/1.1" 200 1337
+INFO 2025-03-12 12:25:11,973 mollie_dude 62714 139885777585920 Using test Mollie API key: test_**************************2TkD
+ERROR 2025-03-12 12:25:12,258 mollie_dude 62714 139885777585920 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-12 12:25:12,258 mollie_dude 62714 139885777585920 Your API key may not have sufficient permissions
+INFO 2025-03-12 12:25:12,295 finance_invoice_reminder 62714 139885777585920 Attempting to attach invoice PDF for invoice #INV202510
+ERROR 2025-03-12 12:25:12,296 finance_invoice_reminder 62714 139885777585920 Error attaching invoice details: 'FinanceInvoice' object has no attribute 'balance_display'
+INFO 2025-03-12 12:25:13,656 mollie_dude 62714 139885769193216 Using test Mollie API key: test_**************************2TkD
+ERROR 2025-03-12 12:25:13,826 mollie_dude 62714 139885769193216 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-12 12:25:13,827 mollie_dude 62714 139885769193216 Your API key may not have sufficient permissions
+INFO 2025-03-12 12:25:13,830 basehttp 62714 139885777585920 "POST /d/graphql/ HTTP/1.1" 200 255
+INFO 2025-03-12 12:25:13,840 finance_invoice_reminder 62714 139885769193216 Attempting to attach invoice PDF for invoice #INV20259
+ERROR 2025-03-12 12:25:13,840 finance_invoice_reminder 62714 139885769193216 Error attaching invoice details: 'FinanceInvoice' object has no attribute 'balance_display'
+INFO 2025-03-12 12:25:14,860 basehttp 62714 139885769193216 "POST /d/graphql/ HTTP/1.1" 200 254
+INFO 2025-03-12 12:26:09,018 basehttp 62714 139885777585920 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-12 12:26:09,018 basehttp 62714 139885769193216 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-12 12:26:09,520 basehttp 62714 139885769193216 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-12 12:26:09,529 basehttp 62714 139885777585920 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-12 12:26:09,969 basehttp 62714 139885777585920 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-12 12:26:10,039 basehttp 62714 139885769193216 "POST /d/graphql/ HTTP/1.1" 200 1337
+INFO 2025-03-12 12:26:10,163 basehttp 62714 139885769193216 "GET /d/static/logos/stock/logo_stock_backend.png HTTP/1.1" 200 4631
+INFO 2025-03-12 12:26:12,826 mollie_dude 62714 139885769193216 Using test Mollie API key: test_**************************2TkD
+INFO 2025-03-12 12:26:20,909 basehttp 62714 139885777585920 "POST /d/graphql/ HTTP/1.1" 200 1337
+INFO 2025-03-12 12:26:30,014 basehttp 62714 139885777585920 "POST /d/graphql/ HTTP/1.1" 200 1337
+INFO 2025-03-12 12:26:40,997 mollie_dude 62714 139885777585920 Using test Mollie API key: test_**************************2TkD
+WARNING 2025-03-12 12:26:58,875 mollie_dude 62714 139885769193216 ⚠️ Mollie API warning: Unable to communicate with Mollie: HTTPSConnectionPool(host='api.mollie.com', port=443): Max retries exceeded with url: /v2/methods (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f39b02f66a0>: Failed to resolve 'api.mollie.com' ([Errno -3] Temporary failure in name resolution)"))
+WARNING 2025-03-12 12:26:58,876 mollie_dude 62714 139885769193216 The API key may be valid, but there was an error with the test request
+INFO 2025-03-12 12:26:58,885 mollie_dude 62714 139885769193216 Using test Mollie API key: test_**************************2TkD
+WARNING 2025-03-12 12:27:27,035 mollie_dude 62714 139885777585920 ⚠️ Mollie API warning: Unable to communicate with Mollie: HTTPSConnectionPool(host='api.mollie.com', port=443): Max retries exceeded with url: /v2/methods (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f39b0fa3970>: Failed to resolve 'api.mollie.com' ([Errno -3] Temporary failure in name resolution)"))
+WARNING 2025-03-12 12:27:27,036 mollie_dude 62714 139885777585920 The API key may be valid, but there was an error with the test request
+INFO 2025-03-12 12:27:27,066 mollie_dude 62714 139885777585920 Using test Mollie API key: test_**************************2TkD
+WARNING 2025-03-12 12:27:44,928 mollie_dude 62714 139885769193216 ⚠️ Mollie API warning: Unable to communicate with Mollie: HTTPSConnectionPool(host='api.mollie.com', port=443): Max retries exceeded with url: /v2/methods (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f39b11019a0>: Failed to resolve 'api.mollie.com' ([Errno -3] Temporary failure in name resolution)"))
+WARNING 2025-03-12 12:27:44,928 mollie_dude 62714 139885769193216 The API key may be valid, but there was an error with the test request
+INFO 2025-03-12 12:27:44,977 mollie_dude 62714 139885769193216 Using test Mollie API key: test_**************************2TkD
+WARNING 2025-03-12 12:28:13,102 mollie_dude 62714 139885777585920 ⚠️ Mollie API warning: Unable to communicate with Mollie: HTTPSConnectionPool(host='api.mollie.com', port=443): Max retries exceeded with url: /v2/methods (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f39b06d30d0>: Failed to resolve 'api.mollie.com' ([Errno -3] Temporary failure in name resolution)"))
+WARNING 2025-03-12 12:28:13,103 mollie_dude 62714 139885777585920 The API key may be valid, but there was an error with the test request
+INFO 2025-03-12 12:28:13,149 mollie_dude 62714 139885777585920 Using test Mollie API key: test_**************************2TkD
+INFO 2025-03-12 12:28:13,338 mollie_dude 62714 139885785978624 Using test Mollie API key: test_**************************2TkD
+WARNING 2025-03-12 12:28:31,028 mollie_dude 62714 139885769193216 ⚠️ Mollie API warning: Unable to communicate with Mollie: HTTPSConnectionPool(host='api.mollie.com', port=443): Max retries exceeded with url: /v2/methods (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x7f39b1105dc0>: Failed to resolve 'api.mollie.com' ([Errno -3] Temporary failure in name resolution)"))
+WARNING 2025-03-12 12:28:31,028 mollie_dude 62714 139885769193216 The API key may be valid, but there was an error with the test request
+ERROR 2025-03-12 12:28:31,032 finance_invoice_reminder 62714 139885769193216 Error sending reminder for invoice #INV202510: 'FinanceInvoice' object has no attribute 'currency'
+ERROR 2025-03-12 12:28:31,055 finance_invoice_reminder 62714 139885769193216 Stack trace: Traceback (most recent call last):
+  File "/opt/backend/app/costasiella/schema/finance_invoice_reminder.py", line 111, in mutate
+    payment_url = mollie_dude.create_payment_for_invoice(invoice)
+  File "/opt/backend/app/costasiella/dudes/mollie_dude.py", line 233, in create_payment_for_invoice
+    'currency': invoice.currency,
+AttributeError: 'FinanceInvoice' object has no attribute 'currency'
+
+ERROR 2025-03-12 12:28:54,716 mollie_dude 62714 139885785978624 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-12 12:28:54,716 mollie_dude 62714 139885785978624 Your API key may not have sufficient permissions
+INFO 2025-03-12 12:28:54,756 finance_invoice_reminder 62714 139885785978624 Attempting to attach invoice PDF for invoice #INV202510
+ERROR 2025-03-12 12:28:54,757 finance_invoice_reminder 62714 139885785978624 Error attaching invoice details: 'FinanceInvoice' object has no attribute 'balance_display'
+INFO 2025-03-12 12:28:55,728 basehttp 62714 139885785978624 "POST /d/graphql/ HTTP/1.1" 200 255
+ERROR 2025-03-12 12:28:59,362 mollie_dude 62714 139885777585920 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-12 12:28:59,363 mollie_dude 62714 139885777585920 Your API key may not have sufficient permissions
+ERROR 2025-03-12 12:28:59,363 finance_invoice_reminder 62714 139885777585920 Error sending reminder for invoice #INV20259: No valid Mollie API key found
+ERROR 2025-03-12 12:28:59,363 finance_invoice_reminder 62714 139885777585920 Stack trace: Traceback (most recent call last):
+  File "/opt/backend/app/costasiella/schema/finance_invoice_reminder.py", line 111, in mutate
+    payment_url = mollie_dude.create_payment_for_invoice(invoice)
+  File "/opt/backend/app/costasiella/dudes/mollie_dude.py", line 223, in create_payment_for_invoice
+    mollie_client = self.get_mollie_client()
+  File "/opt/backend/app/costasiella/dudes/mollie_dude.py", line 37, in get_mollie_client
+    raise Exception("No valid Mollie API key found")
+Exception: No valid Mollie API key found
+
+INFO 2025-03-12 12:33:39,897 autoreload 62714 139885901891392 /opt/backend/app/costasiella/schema/finance_invoice_reminder.py changed, reloading.
+INFO 2025-03-12 12:33:46,324 autoreload 65097 140531634956096 Watching for file changes with StatReloader
+INFO 2025-03-12 12:36:24,978 basehttp 65097 140531451799296 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-12 12:36:25,015 basehttp 65097 140531451799296 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-12 12:36:29,090 basehttp 65097 140531443406592 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-12 12:36:29,333 basehttp 65097 140531451799296 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-12 12:36:30,073 basehttp 65097 140531443406592 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-12 12:36:30,172 basehttp 65097 140531419285248 "POST /d/graphql/ HTTP/1.1" 200 1337
+INFO 2025-03-12 12:36:30,564 basehttp 65097 140531451799296 "POST /d/graphql/ HTTP/1.1" 200 381
+INFO 2025-03-12 12:36:31,324 basehttp 65097 140531451799296 "POST /d/graphql/ HTTP/1.1" 200 1337
+INFO 2025-03-12 12:36:43,594 basehttp 65097 140531451799296 "POST /d/graphql/ HTTP/1.1" 200 193
+INFO 2025-03-12 12:36:48,172 basehttp 65097 140531451799296 "POST /d/graphql/ HTTP/1.1" 200 193
+INFO 2025-03-12 12:36:50,955 finance_invoice_reminder 65097 140531451799296 User martinsadmin authorized to send invoice reminders
+INFO 2025-03-12 12:36:50,972 mollie_dude 65097 140531451799296 Using test Mollie API key: test_**************************2TkD
+ERROR 2025-03-12 12:36:51,225 mollie_dude 65097 140531451799296 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-12 12:36:51,225 mollie_dude 65097 140531451799296 Your API key may not have sufficient permissions
+WARNING 2025-03-12 12:36:51,225 finance_invoice_reminder 65097 140531451799296 Mollie API key not configured or invalid. Continuing without payment links.
+INFO 2025-03-12 12:36:51,232 finance_invoice_reminder 65097 140531451799296 Skipping payment link generation for invoice #INV20259 - Mollie integration disabled
+INFO 2025-03-12 12:36:51,269 finance_invoice_reminder 65097 140531451799296 Using bank transfer template for invoice #INV20259
+INFO 2025-03-12 12:36:52,294 finance_invoice_reminder 65097 140531451799296 Skipping payment link generation for invoice #INV202510 - Mollie integration disabled
+INFO 2025-03-12 12:36:52,327 finance_invoice_reminder 65097 140531451799296 Using bank transfer template for invoice #INV202510
+INFO 2025-03-12 12:36:53,258 basehttp 65097 140531451799296 "POST /d/graphql/ HTTP/1.1" 200 224
+INFO 2025-03-12 12:37:45,828 basehttp 65097 140531451799296 "POST /d/graphql/ HTTP/1.1" 200 193
+INFO 2025-03-12 12:37:48,446 basehttp 65097 140531451799296 "POST /d/graphql/ HTTP/1.1" 200 193
+INFO 2025-03-12 12:38:00,896 basehttp 65097 140531451799296 "POST /d/graphql/ HTTP/1.1" 200 193
+INFO 2025-03-12 12:38:24,201 autoreload 65097 140531634956096 /opt/backend/app/costasiella/schema/finance_invoice_reminder.py changed, reloading.
+INFO 2025-03-12 12:38:27,642 autoreload 66024 140524640859968 Watching for file changes with StatReloader
+INFO 2025-03-12 12:47:36,579 basehttp 66024 140524524947200 "POST /d/graphql/ HTTP/1.1" 200 193
+INFO 2025-03-12 12:47:41,866 basehttp 66024 140524524947200 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-12 12:47:41,878 basehttp 66024 140524524947200 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-12 12:47:42,243 basehttp 66024 140524500825856 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-12 12:47:42,312 basehttp 66024 140524524947200 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-12 12:47:42,501 basehttp 66024 140524500825856 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-12 12:47:42,528 basehttp 66024 140524524947200 "POST /d/graphql/ HTTP/1.1" 200 381
+INFO 2025-03-12 12:47:42,548 basehttp 66024 140524283492096 "POST /d/graphql/ HTTP/1.1" 200 1337
+INFO 2025-03-12 12:47:44,099 basehttp 66024 140524283492096 "POST /d/graphql/ HTTP/1.1" 200 1337
+INFO 2025-03-12 12:54:36,695 autoreload 66024 140524640859968 /opt/backend/app/costasiella/schema/finance_invoice_reminder.py changed, reloading.
+INFO 2025-03-12 12:54:41,489 autoreload 67741 140078052919104 Watching for file changes with StatReloader
+INFO 2025-03-12 12:59:58,201 basehttp 67741 140077869561600 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-12 13:00:05,213 basehttp 67741 140077852776192 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-12 13:00:05,294 basehttp 67741 140077861168896 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-12 13:00:05,461 basehttp 67741 140077852776192 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-12 13:00:05,598 basehttp 67741 140077861168896 "POST /d/graphql/ HTTP/1.1" 200 381
+INFO 2025-03-12 13:00:05,605 basehttp 67741 140077852776192 "POST /d/graphql/ HTTP/1.1" 200 1337
+INFO 2025-03-12 13:00:07,527 basehttp 67741 140077852776192 "POST /d/graphql/ HTTP/1.1" 200 1337
+INFO 2025-03-12 13:00:08,896 basehttp 67741 140077852776192 "GET /d/admin/costasiella/financeinvoice/ HTTP/1.1" 302 0
+INFO 2025-03-12 13:00:09,276 basehttp 67741 140077852776192 "GET /d/admin/login/?next=/d/admin/costasiella/financeinvoice/ HTTP/1.1" 200 2292
+INFO 2025-03-12 13:00:09,447 basehttp 67741 140077852776192 "GET /d/static/admin/css/login.css HTTP/1.1" 200 958
+INFO 2025-03-12 13:00:41,062 basehttp 67741 140077852776192 "POST /d/graphql/ HTTP/1.1" 200 193
+INFO 2025-03-12 13:00:48,350 basehttp 67741 140077852776192 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-12 13:00:48,359 basehttp 67741 140077852776192 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-12 13:00:48,966 basehttp 67741 140077852776192 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-12 13:00:49,000 basehttp 67741 140077861168896 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-12 13:00:49,189 basehttp 67741 140077861168896 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-12 13:00:49,195 basehttp 67741 140077852776192 "POST /d/graphql/ HTTP/1.1" 200 1337
+INFO 2025-03-12 13:01:24,854 basehttp 67741 140077852776192 "POST /d/graphql/ HTTP/1.1" 200 193
+INFO 2025-03-12 13:01:24,936 basehttp 67741 140077852776192 "POST /d/graphql/ HTTP/1.1" 200 193
+INFO 2025-03-12 13:02:15,424 autoreload 67741 140078052919104 /opt/backend/app/costasiella/schema/finance_invoice_reminder.py changed, reloading.
+INFO 2025-03-12 13:02:21,778 autoreload 69155 139671985862464 Watching for file changes with StatReloader
+INFO 2025-03-12 13:05:20,471 basehttp 69155 139671799592704 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-12 13:05:20,503 basehttp 69155 139671799592704 "GET /d/csrf/ HTTP/1.1" 200 30
+INFO 2025-03-12 13:05:22,949 basehttp 69155 139671791200000 "POST /d/graphql/ HTTP/1.1" 200 648
+INFO 2025-03-12 13:05:22,988 basehttp 69155 139671799592704 "POST /d/graphql/ HTTP/1.1" 200 229
+INFO 2025-03-12 13:05:23,105 basehttp 69155 139671791200000 "POST /d/graphql/ HTTP/1.1" 200 244
+INFO 2025-03-12 13:05:23,161 basehttp 69155 139671799592704 "POST /d/graphql/ HTTP/1.1" 200 381
+INFO 2025-03-12 13:05:23,196 basehttp 69155 139671770486528 "POST /d/graphql/ HTTP/1.1" 200 1337
+INFO 2025-03-12 13:05:23,645 basehttp 69155 139671770486528 "POST /d/graphql/ HTTP/1.1" 200 1337
+INFO 2025-03-12 13:05:26,019 mollie_dude 69155 139671770486528 Using test Mollie API key: test_**************************2TkD
+ERROR 2025-03-12 13:05:26,238 mollie_dude 69155 139671770486528 ❌ Unauthorized Mollie API key: Missing authentication, or failed to authenticate
+ERROR 2025-03-12 13:05:26,239 mollie_dude 69155 139671770486528 Your API key may not have sufficient permissions
+INFO 2025-03-12 13:05:26,267 finance_invoice_reminder 69155 139671770486528 Invoice reminder being sent for invoice #INV202510 without PDF attachment
+INFO 2025-03-12 13:05:26,268 finance_invoice_reminder 69155 139671770486528 Email context: invoice_url=http://localhost:3000/finance/invoices/invoice/RmluYW5jZUludm9pY2VOb2RlOjIw, recipient=martinslejn@gmail.com
+INFO 2025-03-12 13:05:27,801 basehttp 69155 139671770486528 "POST /d/graphql/ HTTP/1.1" 200 255

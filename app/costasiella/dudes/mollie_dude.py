@@ -9,6 +9,39 @@ class MollieDude:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
     
+    def is_mollie_enabled(self):
+        """
+        Check if Mollie integration is enabled by verifying if a valid API key exists
+        
+        Returns:
+            bool: True if Mollie integration is enabled, False otherwise
+        """
+        api_key = self.get_api_key()
+        return api_key is not None
+        
+    def get_mollie_client(self):
+        """
+        Get a configured Mollie client instance
+        
+        Returns:
+            mollie.api.client.Client: Configured Mollie client or None if API key is invalid
+        
+        Raises:
+            Exception: If Mollie client initialization fails
+        """
+        from mollie.api.client import Client
+        
+        # Get API key
+        api_key = self.get_api_key()
+        if not api_key:
+            raise Exception("No valid Mollie API key found")
+            
+        # Initialize client
+        mollie = Client()
+        mollie.set_api_key(api_key)
+        
+        return mollie
+    
     def is_payment_links_enabled(self):
         """
         Check if payment links are enabled in system settings
@@ -172,3 +205,42 @@ class MollieDude:
             print(e)
 
         return mandates
+        
+    def create_payment_for_invoice(self, invoice):
+        """
+        Create a Mollie payment for an invoice
+        
+        Args:
+            invoice: The invoice object to create a payment for
+            
+        Returns:
+            str: The payment URL for the customer to complete the payment
+            
+        Raises:
+            MollieError: If there's an error creating the payment
+        """
+        # Get Mollie client
+        mollie_client = self.get_mollie_client()
+        
+        # Get organization details for payment description
+        from ..dudes.system_setting_dude import SystemSettingDude
+        system_setting_dude = SystemSettingDude()
+        organization_name = system_setting_dude.get('organization_name') or 'Costasiella'
+        
+        # Create payment
+        payment = mollie_client.payments.create({
+            'amount': {
+                'currency': invoice.currency,
+                'value': str(invoice.total),  # Convert to string with 2 decimal places
+            },
+            'description': f'{organization_name} - Invoice #{invoice.invoice_number}',
+            'redirectUrl': f'{system_setting_dude.get("system_hostname")}/invoices',
+            'webhookUrl': f'{system_setting_dude.get("system_hostname")}/d/mollie/webhook/',
+            'metadata': {
+                'invoice_id': invoice.id,
+                'invoice_number': invoice.invoice_number,
+            },
+        })
+        
+        # Return the payment URL
+        return payment.checkout_url
