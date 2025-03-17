@@ -86,10 +86,8 @@ class SendInvoiceReminder(graphene.Mutation):
                 # Continue without Mollie integration
 
         try:
-        
-            template_name = 'email/invoice_reminder_without_payment_link.html'
-            if mollie_client and invoice.finance_payment_method and invoice.finance_payment_method.id == 100:
-                template_name = 'email/invoice_reminder_with_payment_link.html'
+            # Always use the template with payment link, which will work with or without Mollie
+            template_name = 'email/invoice_reminder_with_payment_link.html'
 
             frontend_url = system_setting_dude.get('system_frontend_url') or 'http://localhost:3001'
             invoice_url = f"{frontend_url}/#/finance/invoices/edit/{to_global_id('FinanceInvoiceNode', invoice.id)}"

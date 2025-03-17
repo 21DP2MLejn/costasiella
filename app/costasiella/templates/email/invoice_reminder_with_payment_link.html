@@ -44,16 +44,18 @@
     
     <div class="invoice-details">
         <p><strong>Rēķina numurs:</strong> {{ invoice.invoice_number }}</p>
-        <p><strong>Maksājamā summa:</strong> {{ invoice.balance_display }}</p>
+        <p><strong>Maksājamā summa:</strong> {{ invoice.balance }} EUR</p>
         <p><strong>Apmaksas termiņš:</strong> {{ invoice.date_due|date:"j. F, Y" }}</p>
         <p><strong>Statuss:</strong> Nokavēts</p>
     </div>
     
-    <p>Lai apskatītu rēķinu un veiktu maksājumu, lūdzu, izmantojiet šīs saites:</p>
+    <p>Lai apskatītu rēķinu{% if mollie_enabled %} un veiktu maksājumu{% endif %}, lūdzu, izmantojiet {% if mollie_enabled %}šīs saites{% else %}šo saiti{% endif %}:</p>
     
     <p style="margin: 20px 0;">
         <a href="{{ invoice_url }}" style="display: inline-block; background-color: #3498db; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-right: 10px;">Apskatīt rēķinu</a>
+        {% if mollie_enabled and payment_url %}
         <a href="{{ payment_url }}" class="payment-button">Apmaksāt tagad</a>
+        {% endif %}
     </p>
     
     <div class="invoice-details" style="margin-top: 25px;">
