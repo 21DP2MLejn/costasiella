@@ -44,10 +44,8 @@ class SendInvoiceReminder(graphene.Mutation):
 
     @classmethod
     def mutate(self, root, info, id, attachPDF=True):
-        # Initialize logging
         logger = logging.getLogger(__name__)
         
-        # Check user authentication and permissions
         user = info.context.user
         if not user.is_authenticated:
             logger.error("User not authenticated when attempting to send invoice reminder")
@@ -55,7 +53,6 @@ class SendInvoiceReminder(graphene.Mutation):
 
         require_login_and_permission(user, 'costasiella.send_invoicereminder')
 
-        # Get invoice
         rid = get_rid(id)
         invoice = FinanceInvoice.objects.filter(id=rid.id).first()
         if not invoice:
@@ -89,16 +86,13 @@ class SendInvoiceReminder(graphene.Mutation):
                 # Continue without Mollie integration
 
         try:
-            # Determine which template to use
+        
             template_name = 'email/invoice_reminder_without_payment_link.html'
             if mollie_client and invoice.finance_payment_method and invoice.finance_payment_method.id == 100:
-                # Use template with payment link for Mollie payments
                 template_name = 'email/invoice_reminder_with_payment_link.html'
 
-            # Prepare email context
-            # Generate invoice URL for the frontend
             frontend_url = system_setting_dude.get('system_frontend_url') or 'http://localhost:3001'
-            invoice_url = f"{frontend_url}/finance/invoices/invoice/{to_global_id('FinanceInvoiceNode', invoice.id)}"
+            invoice_url = f"{frontend_url}/#/finance/invoices/edit/{to_global_id('FinanceInvoiceNode', invoice.id)}"
             
             context = {
                 'invoice': invoice,
