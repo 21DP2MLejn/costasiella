@@ -49,22 +49,28 @@
         <p><strong>Statuss:</strong> Nokavēts</p>
     </div>
     
-    <p>Lai apskatītu rēķinu{% if mollie_enabled %} un veiktu maksājumu{% endif %}, lūdzu, izmantojiet {% if mollie_enabled %}šīs saites{% else %}šo saiti{% endif %}:</p>
+    {% if payment_url %}
+    <div style="text-align: center; margin: 30px 0; padding: 20px; background-color: #f0f8ff; border-radius: 8px; border: 1px solid #d0e3f0;">
+        <h2 style="margin-top: 0; color: #2c3e50;">Veikt ātru maksājumu tiešsaistē</h2>
+        <p style="margin-bottom: 20px;">Noklikšķiniet uz pogas zemāk, lai veiktu drošu tiešsaistes maksājumu:</p>
+        <a href="{{ payment_url }}" style="display: inline-block; background-color: #4CAF50; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">Apmaksāt rēķinu tagad</a>
+        <p style="margin-top: 15px; font-size: 0.9em; color: #7f8c8d;">Drošs maksājums ar Mollie maksājumu sistēmu</p>
+    </div>
+    {% endif %}
+    
+    <p>Jūs varat arī apskatīt un apmaksāt rēķinu tiešsaistē:</p>
     
     <p style="margin: 20px 0;">
-        <a href="{{ invoice_url }}" style="display: inline-block; background-color: #3498db; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-right: 10px;">Apskatīt rēķinu</a>
-        {% if mollie_enabled and payment_url %}
-        <a href="{{ payment_url }}" class="payment-button">Apmaksāt tagad</a>
-        {% endif %}
+        <a href="{{ invoice_url }}" style="display: inline-block; background-color: #FF9800; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold;">Apmaksāt tagad</a>
     </p>
     
-    <div class="invoice-details" style="margin-top: 25px;">
-        <h3 style="margin-top: 0;">Bankas pārskaitījuma dati</h3>
-        <p>Alternatīvi, jūs varat veikt bankas pārskaitījumu ar šādiem rekvizītiem:</p>
-        <p><strong>Bankas nosaukums:</strong> [Bankas nosaukums]</p>
-        <p><strong>Konta īpašnieks:</strong> [Konta īpašnieks]</p>
-        <p><strong>IBAN:</strong> [IBAN]</p>
-        <p><strong>BIC/SWIFT:</strong> [BIC/SWIFT]</p>
+    <div class="invoice-details" style="margin-top: 25px; {% if payment_url %}border-top: 1px dashed #ddd; padding-top: 20px;{% else %}border-top: none; padding-top: 0;{% endif %}">
+        <h3 style="margin-top: 0;">{% if payment_url %}Alternatīva apmaksas metode:{% endif %} Bankas pārskaitījums</h3>
+        <p>{% if payment_url %}Ja vēlaties, varat{% else %}Lūdzu,{% endif %} veikt bankas pārskaitījumu ar šādiem rekvizītiem:</p>
+        <p><strong>Bankas nosaukums:</strong> {{ bank_name }}</p>
+        <p><strong>Konta īpašnieks:</strong> {{ account_holder }}</p>
+        <p><strong>IBAN:</strong> {{ iban }}</p>
+        <p><strong>BIC/SWIFT:</strong> {{ bic }}</p>
         <p><strong>Atsauce:</strong> Rēķins #{{ invoice.invoice_number }}</p>
         <p style="font-style: italic; margin-top: 10px;">Lūdzu, norādiet rēķina numuru maksājuma atsaucē, lai nodrošinātu pareizu maksājuma apstrādi.</p>
     </div>

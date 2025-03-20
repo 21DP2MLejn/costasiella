@@ -101,8 +101,8 @@ class MailTemplateDude:
             "site_url": hostname
         }
 
-        # Render the template
-        html_message = render_to_string('email/invoice_notification_email.html', context)
+        # Render the template using our preferred unified template
+        html_message = render_to_string('email/invoice_reminder_with_payment_link.html', context)
 
         return dict(
             subject=f'Rēķins Nr. {invoice.finance_invoice_group.prefix}{invoice.invoice_number}',

@@ -86,31 +86,43 @@ class SendInvoiceReminder(graphene.Mutation):
                 # Continue without Mollie integration
 
         try:
-            # Always use the template with payment link, which will work with or without Mollie
+            # Uses the reminder email template with payment link
             template_name = 'email/invoice_reminder_with_payment_link.html'
 
             frontend_url = system_setting_dude.get('system_frontend_url') or 'http://localhost:3001'
-            invoice_url = f"{frontend_url}/#/finance/invoices/edit/{to_global_id('FinanceInvoiceNode', invoice.id)}"
+            # Create a customer-facing payment URL for the shop interface using the global ID format
+            invoice_global_id = to_global_id('FinanceInvoiceNode', invoice.id)
+            invoice_url = f"{frontend_url}/#/shop/account/invoice/{invoice_global_id}"
+            
+            # Get bank transfer details from system settings
+            bank_name = system_setting_dude.get('finance_bank_name') or 'Your Bank'
+            account_holder = system_setting_dude.get('finance_bank_account_holder') or organization
+            iban = system_setting_dude.get('finance_bank_iban') or 'IBAN number not configured'
+            bic = system_setting_dude.get('finance_bank_bic') or 'BIC/SWIFT code not configured'
             
             context = {
                 'invoice': invoice,
                 'organization': organization,
-                'mollie_enabled': mollie_client is not None,
                 'account': invoice.account,
                 'business': invoice.business,
-                'invoice_url': invoice_url
+                'invoice_url': invoice_url,
+                'bank_name': bank_name,
+                'account_holder': account_holder,
+                'iban': iban,
+                'bic': bic
             }
 
-            # Add payment URL if using Mollie
-            if mollie_client and invoice.finance_payment_method and invoice.finance_payment_method.id == 100:
-                # Create payment URL
+            # Try to add payment URL if Mollie is available
+            payment_url = None
+            if mollie_client:
                 try:
                     payment_url = mollie_dude.create_payment_for_invoice(invoice)
-                    context['payment_url'] = payment_url
+                    if payment_url:
+                        context['payment_url'] = payment_url
+                        logger.info(f"Created payment link for invoice #{invoice.invoice_number}")
                 except MollieError as me:
                     logger.error(f"Mollie error creating payment for invoice #{invoice.invoice_number}: {str(me)}")
-                    # Fallback to template without payment link
-                    template_name = 'email/invoice_reminder_without_payment_link.html'
+                    # Continue without payment URL
 
             # Render email template
             email_content = render_to_string(template_name, context)
@@ -129,8 +141,8 @@ class SendInvoiceReminder(graphene.Mutation):
             )
             email.content_subtype = "html"  # Main content is now text/html
 
-            # No need to attach PDF, as users can access the invoice via a unique link
-            # We'll include the link and basic information in the email template instead
+            
+            # the link and basic information in the email template instead of attachment
             logger.info(f"Invoice reminder being sent for invoice #{invoice.invoice_number} without PDF attachment")
             logger.info(f"Email context: invoice_url={invoice_url}, recipient={invoice.account.email}")
 
@@ -396,13 +408,9 @@ class SendInvoiceReminders(graphene.Mutation):
                     'bic': bic
                 }
                 
-                # Determine which email template to use based on payment link availability
-                if payment_link:
-                    template_name = 'email/invoice_reminder_with_payment_link.html'
-                    logger.info(f"Using payment link template for invoice #{invoice.invoice_number}")
-                else:
-                    template_name = 'email/invoice_reminder_without_payment_link.html'
-                    logger.info(f"Using bank transfer template for invoice #{invoice.invoice_number}")
+                # Always use the same template
+                template_name = 'email/invoice_reminder_with_payment_link.html'
+                logger.info(f"Using unified template for invoice #{invoice.invoice_number}")
                 
                 # Render email template
                 email_content = render_to_string(template_name, context)

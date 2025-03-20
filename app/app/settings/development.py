@@ -88,9 +88,9 @@ MIDDLEWARE = [
 ]
 
 # Vault configuration
-VAULT_ADDR = 
-VAULT_TOKEN =       
-VAULT_TRANSIT_KEY
+VAULT_ADDR =
+VAULT_TOKEN =    
+VAULT_TRANSIT_KEY = 
 
 # Django-defender settIS_URL = None  # Add this line
 DEFENDER_STORE_ACCESS_ATTEMPTS = True
@@ -111,7 +111,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
+EMAIL_HOST_USER = 
+EMAIL_HOST_PASSWORD = 
 
 # Detailed logging for debugging
 LOGGING = {
