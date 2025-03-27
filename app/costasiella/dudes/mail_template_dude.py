@@ -34,6 +34,7 @@ class MailTemplateDude:
             "recurring_payment_failed": self._render_template_recurring_payment_failed,
             "trialpass_followup": self._render_template_triaplass_followup,
             "invoice_notification": self._render_invoice_notification,
+            "invoice_initial_notification": self._render_invoice_initial_notification,
         }
 
         func = functions.get(self.email_template, lambda: None)
@@ -111,6 +112,85 @@ class MailTemplateDude:
             html_message=html_message
         )
 
+    def _render_invoice_initial_notification(self):
+        """
+        Render initial invoice notification template sent immediately after creation
+        :return: HTML message
+        """
+        from ..models import Organization
+        from ..dudes.mollie_dude import MollieDude
+
+        # Check if we have the required arguments
+        invoice = self.kwargs.get('invoice', None)
+        if not invoice:
+            raise Exception(_("Invoice not found!"))
+
+        # Get organization info
+        organization = Organization.objects.get(pk=100)
+
+        # Get site URL from system settings
+        from ..models import SystemSetting
+        try:
+            hostname = SystemSetting.objects.get(setting='system_hostname').value
+        except SystemSetting.DoesNotExist:
+            hostname = 'http://localhost:3000'  # Default fallback
+
+        # Get payment URL if Mollie is enabled
+        payment_url = None
+        mollie_dude = MollieDude()
+        if mollie_dude.is_mollie_enabled():
+            try:
+                payment_url = mollie_dude.create_payment_for_invoice(invoice)
+            except Exception as e:
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.error(f"Error creating Mollie payment for invoice #{invoice.invoice_number}: {str(e)}")
+
+        # Get bank transfer details from system settings
+        bank_name = None
+        account_holder = None
+        iban = None
+        bic = None
+        try:
+            bank_name = SystemSetting.objects.get(setting='finance_bank_name').value
+            account_holder = SystemSetting.objects.get(setting='finance_bank_account_holder').value
+            iban = SystemSetting.objects.get(setting='finance_bank_iban').value
+            bic = SystemSetting.objects.get(setting='finance_bank_bic').value
+        except SystemSetting.DoesNotExist:
+            pass
+
+        # Create a customer-facing payment URL for the shop interface
+        from graphql_relay import to_global_id
+        invoice_global_id = to_global_id('FinanceInvoiceNode', invoice.id)
+        invoice_url = f"{hostname}/#/shop/account/invoice/{invoice_global_id}"
+
+        # Prepare context
+        context = {
+            "invoice": invoice,
+            "account": invoice.account,
+            "organization": organization,
+            "site_url": hostname,
+            "invoice_url": invoice_url,
+            "bank_name": bank_name,
+            "account_holder": account_holder,
+            "iban": iban,
+            "bic": bic
+        }
+
+        # Add payment URL if available
+        if payment_url:
+            context["payment_url"] = payment_url
+
+        # Render the template using the initial notification template
+        html_message = render_to_string('email/invoice_initial_notification.html', context)
+
+        return dict(
+            subject=f'Rēķins Nr. {invoice.finance_invoice_group.prefix}{invoice.invoice_number}',
+            title='Rēķins',
+            description=f'Rēķins Nr. {invoice.finance_invoice_group.prefix}{invoice.invoice_number}',
+            html_message=html_message
+        )
+        
     def _render_event_info_mail(self):
         """
         Render info mail for an event

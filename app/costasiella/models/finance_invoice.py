@@ -51,6 +51,7 @@ class FinanceInvoice(models.Model):
     invoice_number = models.CharField(max_length=255, default="")  # Invoice #
     date_sent = models.DateField()
     date_due = models.DateField()
+    date_last_reminder = models.DateField(null=True, blank=True)
     terms = models.TextField(default="")
     footer = models.TextField(default="")
     note = models.TextField(default="")

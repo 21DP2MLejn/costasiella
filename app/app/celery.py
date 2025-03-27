@@ -26,6 +26,22 @@ celery_app.config_from_object('django.conf:settings', namespace='CELERY')
 # Load task modules from all registered Django app configs.
 celery_app.autodiscover_tasks()
 
+# Configure Celery Beat schedule
+celery_app.conf.beat_schedule = {
+    # Check invoice reminder eligibility every day at midnight
+    'check-invoice-reminder-eligibility-daily': {
+        'task': 'costasiella.tasks.finance.invoices.tasks.finance_invoices_check_reminder_eligibility',
+        'schedule': crontab(minute=0, hour=0),  # Run at midnight every day
+        'args': (),
+    },
+    # Mark invoices as overdue every day at 1 AM
+    'mark-invoices-overdue-daily': {
+        'task': 'costasiella.tasks.finance.invoices.tasks.finance_invoices_mark_overdue',
+        'schedule': crontab(minute=0, hour=1),  # Run at 1 AM every day
+        'args': (),
+    },
+}
+
 
 @celery_app.task(bind=True)
 def debug_task(self):

@@ -8,6 +8,7 @@ from graphql_relay import to_global_id
 import graphene
 import logging
 import traceback
+import datetime
 from graphene_django import DjangoObjectType
 from graphql import GraphQLError
 from mollie.api.client import Client
@@ -100,6 +101,13 @@ class SendInvoiceReminder(graphene.Mutation):
             iban = system_setting_dude.get('finance_bank_iban') or 'IBAN number not configured'
             bic = system_setting_dude.get('finance_bank_bic') or 'BIC/SWIFT code not configured'
             
+            # Calculate overdue days
+            today = datetime.date.today()
+            overdue_days = (today - invoice.date_due).days if today > invoice.date_due else 0
+            
+            # Get terms URL from system settings or use a default
+            terms_url = system_setting_dude.get('system_terms_url') or '#'
+            
             context = {
                 'invoice': invoice,
                 'organization': organization,
@@ -109,19 +117,30 @@ class SendInvoiceReminder(graphene.Mutation):
                 'bank_name': bank_name,
                 'account_holder': account_holder,
                 'iban': iban,
-                'bic': bic
+                'bic': bic,
+                'overdue_days': overdue_days,
+                'terms_url': terms_url
             }
 
             # Try to add payment URL if Mollie is available
             payment_url = None
+            logger.info(f"Mollie client available: {mollie_client is not None}")
             if mollie_client:
                 try:
+                    logger.info(f"Attempting to create payment link for invoice #{invoice.invoice_number} with total {invoice.total}")
                     payment_url = mollie_dude.create_payment_for_invoice(invoice)
+                    logger.info(f"Payment URL created: {payment_url is not None}")
                     if payment_url:
                         context['payment_url'] = payment_url
-                        logger.info(f"Created payment link for invoice #{invoice.invoice_number}")
+                        logger.info(f"Added payment_url to email context: {payment_url}")
+                    else:
+                        logger.error(f"Failed to create payment URL for invoice #{invoice.invoice_number} - returned None")
                 except MollieError as me:
                     logger.error(f"Mollie error creating payment for invoice #{invoice.invoice_number}: {str(me)}")
+                    # Continue without payment URL
+                except Exception as e:
+                    logger.error(f"Unexpected error creating payment for invoice #{invoice.invoice_number}: {str(e)}")
+                    logger.error(f"Stack trace: {traceback.format_exc()}")
                     # Continue without payment URL
 
             # Render email template
@@ -148,6 +167,12 @@ class SendInvoiceReminder(graphene.Mutation):
 
             # Send email
             email.send()
+            
+            # Update the date_last_reminder field
+            today = datetime.date.today()
+            invoice.date_last_reminder = today
+            invoice.save()
+            logger.info(f"Updated date_last_reminder to {today} for invoice #{invoice.invoice_number}")
 
             return SendInvoiceReminder(
                 result=SendInvoiceReminderResultType(
@@ -396,6 +421,13 @@ class SendInvoiceReminders(graphene.Mutation):
                 iban = iban or 'IBAN number not configured'
                 bic = bic or 'BIC/SWIFT code not configured'
                 
+                # Calculate overdue days
+                today = datetime.date.today()
+                overdue_days = (today - invoice.date_due).days if today > invoice.date_due else 0
+                
+                # Get terms URL from system settings or use a default
+                terms_url = system_setting_dude.get('system_terms_url') or '#'
+                
                 # Prepare email context
                 context = {
                     'invoice': invoice,
@@ -405,7 +437,10 @@ class SendInvoiceReminders(graphene.Mutation):
                     'bank_name': bank_name,
                     'account_holder': account_holder,
                     'iban': iban,
-                    'bic': bic
+                    'bic': bic,
+                    'overdue_days': overdue_days,
+                    'terms_url': terms_url,
+                    'invoice_url': 'https://' + host + '/#/shop/account/invoice/' + to_global_id("FinanceInvoiceNode", invoice.id)
                 }
                 
                 # Always use the same template
@@ -429,6 +464,12 @@ class SendInvoiceReminders(graphene.Mutation):
                 )
                 email.content_subtype = "html"  # Main content is now text/html
                 email.send()
+                
+                # Update the date_last_reminder field
+                today = datetime.date.today()
+                invoice.date_last_reminder = today
+                invoice.save()
+                logger.info(f"Updated date_last_reminder to {today} for invoice #{invoice.invoice_number}")
                 
                 successful_reminders += 1
                 
