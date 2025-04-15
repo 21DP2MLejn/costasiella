@@ -46,23 +46,19 @@
         <p><strong>Rēķina numurs:</strong> {{ invoice.invoice_number }}</p>
         <p><strong>Maksājamā summa:</strong> {{ invoice.balance }} EUR</p>
         <p><strong>Apmaksas termiņš:</strong> {{ invoice.date_due|date:"j. F, Y" }}</p>
-        <p><strong>Statuss:</strong> Nokavēts</p>
+        <p><strong>Statuss:</strong> Nokavēts ({{ overdue_days }} dienas)</p>
     </div>
     
-    {% if payment_url %}
-    <div style="text-align: center; margin: 30px 0; padding: 20px; background-color: #f0f8ff; border-radius: 8px; border: 1px solid #d0e3f0;">
-        <h2 style="margin-top: 0; color: #2c3e50;">Veikt ātru maksājumu tiešsaistē</h2>
-        <p style="margin-bottom: 20px;">Noklikšķiniet uz pogas zemāk, lai veiktu drošu tiešsaistes maksājumu:</p>
-        <a href="{{ payment_url }}" style="display: inline-block; background-color: #4CAF50; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">Apmaksāt rēķinu tagad</a>
-        <p style="margin-top: 15px; font-size: 0.9em; color: #7f8c8d;">Drošs maksājums ar Mollie maksājumu sistēmu</p>
+    <div style="margin: 30px 0; padding: 15px; background-color: #f9f9f9; border-radius: 5px;">
+        <p>Maksājiet tiešsaistē ar Mollie vai apmaksājiet rēķinu mūsu mājaslapā:</p>
+        
+        <div style="margin-top: 15px; text-align: center;">
+            {% if payment_url %}
+            <a href="{{ payment_url }}" style="display: inline-block; background-color: #4CAF50; color: white; padding: 8px 15px; text-decoration: none; border-radius: 4px; font-weight: bold; text-align: center; margin-right: 15px; font-size: 14px;">Maksāt ar Mollie</a>
+            {% endif %}
+            <a href="{{ invoice_url }}" style="display: inline-block; background-color: #FF9800; color: white; padding: 8px 15px; text-decoration: none; border-radius: 4px; font-weight: bold; text-align: center; font-size: 14px;">Apmaksāt mājaslapā</a>
+        </div>
     </div>
-    {% endif %}
-    
-    <p>Jūs varat arī apskatīt un apmaksāt rēķinu tiešsaistē:</p>
-    
-    <p style="margin: 20px 0;">
-        <a href="{{ invoice_url }}" style="display: inline-block; background-color: #FF9800; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold;">Apmaksāt tagad</a>
-    </p>
     
     <div class="invoice-details" style="margin-top: 25px; {% if payment_url %}border-top: 1px dashed #ddd; padding-top: 20px;{% else %}border-top: none; padding-top: 0;{% endif %}">
         <h3 style="margin-top: 0;">{% if payment_url %}Alternatīva apmaksas metode:{% endif %} Bankas pārskaitījums</h3>
@@ -81,6 +77,9 @@
         <p>Ja jums ir kādi jautājumi vai neskaidrības par šo rēķinu, lūdzu, sazinieties ar mums.</p>
         <p>Paldies par jūsu uzmanību šajā jautājumā.</p>
         <p>Ar cieņu,<br>{{ organization }}</p>
+        <p style="font-size: 0.8em; margin-top: 20px; color: #888;">
+            <a href="{{ terms_url }}" style="color: #888; text-decoration: underline;">Pakalpojumu sniegšanas noteikumi</a>
+        </p>
     </div>
 </body>
 </html>

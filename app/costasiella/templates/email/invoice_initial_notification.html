@@ -1,0 +1,57 @@
+{% extends "email/base.html" %}
+{% load i18n %}
+{% load l10n %}
+
+{% block title %}
+Rēķins #{{ invoice.invoice_number }}
+{% endblock %}
+
+{% block content %}
+<div class="email-container">
+    <div class="header" style="text-align: center; margin-bottom: 30px;">
+        <h1 style="color: #333; margin-bottom: 10px;">Rēķins #{{ invoice.invoice_number }}</h1>
+        <p style="color: #666;">{{ organization }}</p>
+    </div>
+    
+    <div class="invoice-info" style="margin-bottom: 25px;">
+        <p>Labdien!</p>
+        <p>Jums ir izveidots jauns rēķins #{{ invoice.invoice_number }}.</p>
+        <p>Rēķina summa: <strong>{{ invoice.total|floatformat:2 }} {{ invoice.currency }}</strong></p>
+        <p>Apmaksas termiņš: <strong>{{ invoice.date_due|date:"d.m.Y" }}</strong></p>
+    </div>
+    
+    {% if payment_url %}
+    <div class="payment-button" style="margin: 25px 0; text-align: center;">
+        <p>Apmaksājiet rēķinu ērti tiešsaistē, izmantojot drošu maksājumu saiti:</p>
+        
+        <p style="margin: 20px 0;">
+            <a href="{{ payment_url }}" style="display: inline-block; background-color: #4CAF50; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold;">Apmaksāt rēķinu tagad</a>
+        </p>
+    </div>
+    {% endif %}
+    
+    <p>Jūs varat arī apskatīt un apmaksāt rēķinu tiešsaistē:</p>
+    
+    <p style="margin: 20px 0;">
+        <a href="{{ invoice_url }}" style="display: inline-block; background-color: #FF9800; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold;">Apmaksāt tagad</a>
+    </p>
+    
+    {% if payment_url %}
+    <div class="invoice-details" style="margin-top: 25px; border-top: 1px dashed #ddd; padding-top: 20px;">
+    {% else %}
+    <div class="invoice-details" style="margin-top: 25px; border-top: none; padding-top: 0;">
+    {% endif %}
+        <h3 style="color: #333; margin-bottom: 15px;">Bankas pārskaitījuma informācija</h3>
+        <p><strong>Banka:</strong> {{ bank_name }}</p>
+        <p><strong>Saņēmējs:</strong> {{ account_holder }}</p>
+        <p><strong>IBAN:</strong> {{ iban }}</p>
+        <p><strong>BIC/SWIFT:</strong> {{ bic }}</p>
+        <p><strong>Maksājuma mērķis:</strong> Rēķins #{{ invoice.invoice_number }}</p>
+    </div>
+    
+    <div class="footer" style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; color: #666; font-size: 0.9em;">
+        <p>Ja jums ir kādi jautājumi par šo rēķinu, lūdzu, sazinieties ar mums.</p>
+        <p>Paldies par sadarbību!</p>
+    </div>
+</div>
+{% endblock %}

@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <title>Invoice</title>
     <meta name="description" content="Invoice">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico" type="text/css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" type="text/css">
     <style>
 @media print {
@@ -14,283 +13,335 @@
 }    
 
 @page {
-  font-family: Pacifico;
-  margin: 3cm;
-  @bottom-left {
-    color: {{ organization.branding_color_accent }};
-    content: '♥ Thank you!';
-  }
+  font-family: Source Sans Pro;
+  margin: 2cm;
+}
+
+@page {
   @bottom-right {
-    color: {{ organization.branding_color_secondary }};
+    color: #666666;
     content: '{% if organization.email %} {{ organization.email }} {% endif %} {% if organization.phone %} | {{ organization.phone }} {% endif %}';
-    font-size: 10pt;
+    font-size: 9pt;
   }
 }
 
 html {
-  color: {{ organization.branding_color_text }};
-  font-family: Source Sans Pro;
+  color: #333333;
+  font-family: Source Sans Pro, Arial, sans-serif;
   font-size: 10pt;
-  line-height: 1.6;
+  line-height: 1.4;
 }
 body {
   margin: 0;
+  padding: 0;
 }
 
-h1 {
-  color: {{ organization.branding_color_accent }};
-  font-family: Pacifico;
-  font-size: 40pt;
-  margin: 0
+.invoice-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2cm;
 }
 
-.color-secondary {
-    color: {{ organization.branding_color_secondary }}; 
+.logo-container {
+  flex: 1;
 }
 
-img {
-    text-align: center;
-    max-height: 85px;
-    max-width: 5cm;
-    position: absolute;
-    top: 0;
-    right: 0;
+.invoice-info {
+  text-align: right;
+}
+
+.invoice-info h2 {
+  margin: 0;
+  font-size: 14pt;
+  color: #333333;
+}
+
+.invoice-info p {
+  margin: 5px 0;
+}
+
+img.logo {
+  max-height: 70px;
+  max-width: 200px;
 }
 
 hr {
-    color: {{ organization.branding_color_secondary }};
+  border: none;
+  border-top: 1px solid #dddddd;
+  margin: 10px 0;
 }
 
-aside {
+.parties {
   display: flex;
-  margin: 2em 0 2em;
-}
-aside dl {
-    text-align: right;
-}
-aside address {
-  font-style: normal;
-  white-space: normal;
-}
-aside address#from {
-  color: {{ organization.branding_color_secondary }};
-  flex: 1;
-}
-aside address#to {
-  text-align: right;
-}
-aside address#from strong,
-aside address#to strong {
-    font-style: bold;
-    font-weight: bold;
+  justify-content: space-between;
+  margin-bottom: 1.5cm;
 }
 
-dl {
-  margin-top: 0;
+.party {
+  width: 48%;
 }
-dt, dd {
-  display: inline;
-  margin: 0;
+
+.party h3 {
+  color: #4CAF50;
+  font-size: 11pt;
+  margin: 0 0 5px 0;
+  text-transform: uppercase;
+  font-weight: bold;
 }
-dt {
-  color: {{ organization.branding_color_secondary }};
+
+.party p {
+  margin: 2px 0;
+}
+
+.highlight {
+  color: #4CAF50;
+  font-weight: bold;
 }
 
 table {
   border-collapse: collapse;
   width: 100%;
+  margin-bottom: 1cm;
 }
-th {
-  border-bottom: .2mm solid {{ organization.branding_color_secondary }};
-  color: {{ organization.branding_color_secondary }};
+
+table.items {
+  margin-top: 1cm;
+}
+
+table.items th {
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #dddddd;
+  color: #333333;
   font-size: 10pt;
-  font-weight: 400;
-  padding-bottom: .25cm;
+  font-weight: bold;
+  padding: 8px;
+  text-align: left;
   text-transform: uppercase;
 }
-td {
-  padding-top: 1.5mm;
-  padding-bottom: 1.5mm;
+
+table.items td {
+  border-bottom: 1px solid #eeeeee;
+  padding: 8px;
   vertical-align: top;
 }
-td:last-of-type {
-  color: {{ organization.branding_color_accent }};
+
+table.items tr:last-child td {
+  border-bottom: none;
+}
+
+table.items .code {
+  width: 15%;
+}
+
+table.items .description {
+  width: 40%;
+}
+
+table.items .quantity, 
+table.items .unit, 
+table.items .price, 
+table.items .vat, 
+table.items .total {
+  width: 9%;
+  text-align: right;
+}
+
+.summary {
+  margin-top: 1cm;
+  text-align: right;
+}
+
+.summary table {
+  width: auto;
+  margin-left: auto;
+  margin-bottom: 0.5cm;
+}
+
+.summary td {
+  padding: 5px 10px;
+}
+
+.summary td:first-child {
+  text-align: right;
   font-weight: bold;
-  text-align: right;
-}
-th, td {
-  text-align: right;
-}
-th:first-of-type, td:first-of-type {
-  text-align: left;
-}
-th:last-of-type, td:last-of-type {
-  text-align: right;
-}
-table#items tbody tr {
-    border-bottom: .2mm solid {{ organization.branding_color_secondary }};
-}
-table#items tbody tr:nth-last-child(-n+4) {
-    border-bottom: none;
 }
 
-table#items .item-product {
-    width: auto;
-}
-table#items .item-price {
-    width: 2cm;
-}
-table#items .item-qty {
-    width: 1cm;
-}
-table#items .item-subtotal,
-table#items .item-tax,
-table#items .item-total {
-    width: 1.75cm;
+.summary td:last-child {
+  text-align: right;
+  min-width: 100px;
 }
 
-table#total {
-  background: {{ organization.branding_color_background }};
-  border-color: {{ organization.branding_color_background }};
-  border-style: solid;
-  border-width: 1cm 3cm;
-  bottom: 0;
-  font-size: 20pt;
-  margin: 1cm -3cm;
-  width: 18cm;
+.summary tr.total {
+  font-weight: bold;
+  font-size: 12pt;
+}
+
+.summary tr.total td {
+  border-top: 1px solid #dddddd;
+  padding-top: 10px;
+}
+
+.due-date {
+  margin-top: 1cm;
+  display: flex;
+  justify-content: space-between;
+}
+
+.due-date .label {
+  font-weight: bold;
+}
+
+.due-date .amount {
+  color: #4CAF50;
+  font-weight: bold;
+  font-size: 14pt;
 }
     </style>    
   </head>
 
   <body>
-    <h1>Invoice</h1>
+    <div class="invoice-header">
+      <div class="logo-container">
+        <img class="logo" src={{ logo_url }} />
+      </div>
+      <div class="invoice-info">
+        <h2>Rēķins Nr. {{ invoice.invoice_number }}</h2>
+        <p>Datums: {{ invoice.date_sent|date:"Y-m-d" }}</p>
+      </div>
+    </div>
 
-    <aside>
-      <address id="from">
-        {{ organization.name|upper }}
+    <div class="parties">
+      <div class="party">
+        <h3>Piegādātājs:</h3>
+        <p><strong>{{ organization.name }}</strong></p>
         {% if organization.address %}
-            {{ organization.address|safe }}
+            <p>{{ organization.address|safe|linebreaksbr }}</p>
         {% endif %}
-      </address>
+        {% if organization.registration_nr %}
+            <p>Reģistrācijas Nr.: {{ organization.registration_nr }}</p>
+        {% endif %}
+        {% if organization.tax_registration_nr %}
+            <p>PVN Nr.: {{ organization.tax_registration_nr }}</p>
+        {% endif %}
+        {% if organization.bank_name or organization.bank_account %}
+            <p>Banka: {{ organization.bank_name }}</p>
+            <p>Konta Nr.: {{ organization.bank_account }}</p>
+        {% endif %}
+      </div>
 
-      <address id="to">
-        <dl id="informations">
-          <dt>Invoice number</dt>
-          <dd>#{{invoice.invoice_number}}</dd><br>
-          <dt> Date</dt>
-          <dd>{{ invoice.date_sent }}</dd>
-        </dl>
+      <div class="party">
+        <h3>Maksātājs:</h3>
         {% if invoice.relation_company %}
-            <strong>{{ invoice.relation_company }}</strong><br>
+            <p><strong>{{ invoice.relation_company }}</strong></p>
         {% endif %}
         {% if invoice.relation_company_registration %}
-            {{ invoice.relation_company_registration }}<br>
+            <p>Reģistrācijas Nr.: {{ invoice.relation_company_registration }}</p>
         {% endif %}
         {% if invoice.relation_company_tax_registration %}
-            {{ invoice.CustomerCompanyTaxRegistration }}<br>
+            <p>PVN Nr.: {{ invoice.relation_company_tax_registration }}</p>
         {% endif %}
         {% if invoice.relation_contact_name %}
-            <strong>{{ invoice.relation_contact_name }}</strong><br>
+            <p><strong>{{ invoice.relation_contact_name }}</strong></p>
         {% endif %}
         {% if invoice.relation_address %}
-            {{ invoice.relation_address|safe }}<br>
+            <p>{{ invoice.relation_address|safe|linebreaksbr }}</p>
         {% endif %}
-        {% if invoice.relation_postcode %}
-            {{ invoice.relation_postcode|safe }}
-        {% endif %}
-        {% if invoice.relation_city %}
-            {{ invoice.relation_city|safe }}
+        {% if invoice.relation_postcode or invoice.relation_city %}
+            <p>{% if invoice.relation_postcode %}{{ invoice.relation_postcode }}{% endif %} {% if invoice.relation_city %}{{ invoice.relation_city }}{% endif %}</p>
         {% endif %}
         {% if invoice.relation_country %}
-            <br> {{ invoice.relation_country|safe }}
+            <p>{{ invoice.relation_country }}</p>
         {% endif %}
-      </address>
-    </aside>
-    
-    <img src={{ logo_url }} />
+      </div>
+    </div>
 
-    <table id="items">
+    <div class="invoice-details">
+      <p>Darījuma apraksts: {{ invoice.summary }}</p>
+      <p>Apmaksas termiņš: {{ invoice.date_due|date:"Y-m-d" }}</p>
+      <p>Samaksas veids: Bankas pārskaitījums</p>
+    </div>
+
+    <table class="items">
       <thead>
         <tr>
-          <th>Product</th>
-          <th>Price</th>
-          <th>Qty</th>
-          <th>Subtotal</th>
-          <th>Tax</th>
-          <th>Total</th>
+          <th class="code">Kods</th>
+          <th class="description">Apraksts</th>
+          <th class="quantity">Mērv.</th>
+          <th class="unit">Daudz.</th>
+          <th class="price">Cena</th>
+          <th class="vat">PVN</th>
+          <th class="total">Summa</th>
         </tr>
       </thead>
       <tbody>
         {% for item in items %}
             <tr>
-                <td class="item-product"><b>{{ item.product_name }}</b> <br> {{ item.description|linebreaksbr }}</td>
-                <td class="item-price"><span class="right">{{ currency_symbol}} {{ item.price }} <br> {{ item.finance_tax_rate.name }} ({{ item.finance_tax_rate.rate_type }})</span></td>
-                <td class="item-qty"><span class="right">{{ item.quantity }}</span></td>
-                <td class="item-subtotal"><span class="right">{{ currency_symbol }} {{ item.subtotal }}</span></td>
-                <td class="item-tax"><span class="right">{{ currency_symbol }} {{ item.tax }}</span></td>
-                <td class="item-total"><span class="right">{{ currency_symbol}} {{ item.total}}</span></td>
+                <td>{{ item.product_code|default:"" }}</td>
+                <td><strong>{{ item.product_name }}</strong> <br> {{ item.description|linebreaksbr }}</td>
+                <td>{{ item.unit|default:"gab." }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ currency_symbol }} {{ item.price }}</td>
+                <td>{{ item.finance_tax_rate.percentage|default:"21" }}%</td>
+                <td>{{ currency_symbol }} {{ item.subtotal }}</td>
             </tr>
         {% endfor %}
-        <tr class="border-top">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><span class="right"><strong>Subtotal</strong></span></td>
-            <td><span class="right">{{ currency_symbol}} {{ invoice.subtotal }}</span></td>
-        </tr>
-        {% for tax_rate in tax_rates %}
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><span class="right">{{ tax_rate.name }} ({{ tax_rate.rate_type }})</span></td>
-                <td><span class="right">{{ currency_symbol}} {{ tax_rate.invoice_amount }}</span></td>
-            </tr>
-        {% endfor %}
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="border-top"><span class="right"><strong>Total</strong></span></td>
-            <td class="border-top"><span class="right">{{ currency_symbol}} {{ invoice.total }}</span></td>
-        </tr>
       </tbody>
     </table>
 
-    <table id="total">
-      <thead>
+    <div class="summary">
+      <table>
         <tr>
-          <th>Due</th>
-          <th>Total</th>
+          <td>Kopā:</td>
+          <td>{{ currency_symbol }} {{ invoice.subtotal }}</td>
         </tr>
-      </thead>
-      <tbody>
+        {% for tax_rate in tax_rates %}
         <tr>
-          <td>{{ invoice.date_due }}</td>
-          <td>{{ currency_symbol}} {{ invoice.total }}</td>
+          <td>Ar PVN {{ tax_rate.percentage|default:"21" }}% apliekamā summa:</td>
+          <td>{{ currency_symbol }} {{ tax_rate.invoice_amount }}</td>
         </tr>
-      </tbody>
-    </table>
+        {% endfor %}
+        <tr>
+          <td>Pievienotās vērtības nodoklis:</td>
+          <td>{{ currency_symbol }} {{ invoice.tax }}</td>
+        </tr>
+        <tr class="total">
+          <td>Summa kopā:</td>
+          <td>{{ currency_symbol }} {{ invoice.total }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="due-date">
+      <div>
+        <span class="label">DUE</span>
+      </div>
+      <div>
+        <span class="amount">{{ currency_symbol }} {{ invoice.total }}</span>
+      </div>
+    </div>
     
-    <!-- Don't forget the terms and footer -->
+    <hr>
+    <p>( Summa vārdiem ) {{ invoice.total_in_words|default:"" }}</p>
+    <hr>
+    
     {% if invoice.terms %}
         <div id="terms">
-            <strong class="color-secondary">TERMS AND CONDITIONS</strong><hr>
+            <p><strong>Rēķins ir sagatavots elektroniski un derīgs bez paraksta.</strong></p>
+            <p>Izsniedza: {{ invoice.created_by.full_name|default:organization.name }}</p>
+            <p>Datums: {{ invoice.date_sent|date:"Y-m-d" }}</p>
+            
             {% autoescape off %}
-				{{ invoice.terms }}
-			{% endautoescape %}
-			<hr>
+                {{ invoice.terms }}
+            {% endautoescape %}
         </div>
     {% endif %}
+    
     {% if invoice.footer %}
         <footer>
-            <div>
-				{% autoescape off %}
-					{{ invoice.footer }}
-				{% endautoescape %}
+            <div style="text-align: center; margin-top: 2cm; color: #4CAF50; font-weight: bold;">
+                {% autoescape off %}
+                    {{ invoice.footer }}
+                {% endautoescape %}
             </div>
         </footer>
     {% endif %}

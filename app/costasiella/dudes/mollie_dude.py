@@ -225,22 +225,68 @@ class MollieDude:
         # Get organization details for payment description
         from ..dudes.system_setting_dude import SystemSettingDude
         system_setting_dude = SystemSettingDude()
-        organization_name = system_setting_dude.get('organization_name') or 'Costasiella'
+        organization_name = system_setting_dude.get('system_organization_name') or 'Costasiella'
+        self.logger.info(f"Using organization name: {organization_name}")
+        
+        # Get currency from system settings or use default (EUR)
+        currency = system_setting_dude.get('system_currency') or 'EUR'
+        self.logger.info(f"Using currency {currency} for invoice #{invoice.invoice_number}")
+        
+        # Format total as string with 2 decimal places
+        total_formatted = "{:.2f}".format(float(invoice.total))
+        
+        # Get hostname and ensure it uses HTTPS for production or proper testing
+        hostname = system_setting_dude.get("system_hostname")
+        self.logger.info(f"Original hostname from settings: {hostname}")
+        
+        # For testing purposes, if we're using localhost, we can skip the webhook
+        # as Mollie can't reach localhost anyway
+        webhook_url = None
+        if 'localhost' in hostname or '127.0.0.1' in hostname:
+            self.logger.info("Using test mode without webhook (localhost detected)")
+            # In test mode with localhost, we'll skip the webhook
+            payment_data = {
+                'amount': {
+                    'currency': currency,
+                    'value': total_formatted,
+                },
+                'description': f'{organization_name} - Invoice #{invoice.invoice_number}',
+                'redirectUrl': f'{hostname}/invoices',
+                'metadata': {
+                    'invoice_id': invoice.id,
+                    'invoice_number': invoice.invoice_number,
+                },
+            }
+        else:
+            # Ensure hostname uses HTTPS for production
+            if hostname.startswith('http://') and not ('localhost' in hostname or '127.0.0.1' in hostname):
+                hostname = hostname.replace('http://', 'https://')
+                self.logger.info(f"Converted hostname to HTTPS: {hostname}")
+            
+            webhook_url = f'{hostname}/d/mollie/webhook/'
+            self.logger.info(f"Using webhook URL: {webhook_url}")
+            
+            payment_data = {
+                'amount': {
+                    'currency': currency,
+                    'value': total_formatted,
+                },
+                'description': f'{organization_name} - Invoice #{invoice.invoice_number}',
+                'redirectUrl': f'{hostname}/invoices',
+                'webhookUrl': webhook_url,
+                'metadata': {
+                    'invoice_id': invoice.id,
+                    'invoice_number': invoice.invoice_number,
+                },
+            }
+        
+        self.logger.info(f"Creating payment with data: {payment_data}")
         
         # Create payment
-        payment = mollie_client.payments.create({
-            'amount': {
-                'currency': invoice.currency,
-                'value': str(invoice.total),  # Convert to string with 2 decimal places
-            },
-            'description': f'{organization_name} - Invoice #{invoice.invoice_number}',
-            'redirectUrl': f'{system_setting_dude.get("system_hostname")}/invoices',
-            'webhookUrl': f'{system_setting_dude.get("system_hostname")}/d/mollie/webhook/',
-            'metadata': {
-                'invoice_id': invoice.id,
-                'invoice_number': invoice.invoice_number,
-            },
-        })
-        
-        # Return the payment URL
-        return payment.checkout_url
+        try:
+            payment = mollie_client.payments.create(payment_data)
+            # Return the payment URL
+            return payment.checkout_url
+        except Exception as e:
+            self.logger.error(f"Error creating Mollie payment: {str(e)}")
+            return None

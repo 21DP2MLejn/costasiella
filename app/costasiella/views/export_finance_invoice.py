@@ -98,7 +98,7 @@ def invoice_html(node_id):
             
             <div class="invoice-details">
                 <p><strong>Invoice Number:</strong> {finance_invoice.invoice_number}</p>
-                <p><strong>Date Created:</strong> {finance_invoice.date_created}</p>
+                <p><strong>Date Created:</strong> {finance_invoice.date_sent}</p>
                 <p><strong>Date Due:</strong> {finance_invoice.date_due}</p>
                 <p><strong>Status:</strong> {finance_invoice.status}</p>
                 <p><strong>Customer:</strong> {finance_invoice.account.full_name if finance_invoice.account else 'N/A'}</p>

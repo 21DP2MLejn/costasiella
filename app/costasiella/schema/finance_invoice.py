@@ -1,15 +1,23 @@
 from django.utils.translation import gettext as _
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
+from django.conf import settings
 
 import graphene
+import logging
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql import GraphQLError
 from graphql_relay import to_global_id
+from mollie.api.client import Client
+from mollie.api.error import Error as MollieError
 
-from ..models import Account, AccountSubscription, Business, FinanceInvoice, FinanceInvoiceGroup, FinancePaymentMethod
+from ..models import Account, AccountSubscription, Business, FinanceInvoice, FinanceInvoiceGroup, FinancePaymentMethod, SystemSetting
 from ..modules.gql_tools import require_login, require_login_and_permission, require_permission, get_rid
 from ..modules.messages import Messages
 from ..modules.finance_tools import display_float_as_amount
+from ..dudes.system_setting_dude import SystemSettingDude
+from ..dudes.mollie_dude import MollieDude
 
 from .custom_schema_validators import is_year, is_month
 
@@ -25,6 +33,7 @@ class FinanceInvoiceInterface(graphene.Interface):
     balance_display = graphene.String()
     credit_invoice_number = graphene.String()
     credit_invoice_id = graphene.ID()
+    is_reminder_eligible = graphene.Boolean()
 
 
 class FinanceInvoiceNode(DjangoObjectType):
@@ -51,6 +60,7 @@ class FinanceInvoiceNode(DjangoObjectType):
             'invoice_number',
             'date_sent',
             'date_due',
+            'date_last_reminder',
             'terms',
             'footer',
             'note',
@@ -106,6 +116,26 @@ class FinanceInvoiceNode(DjangoObjectType):
             return_value = to_global_id("FinanceInvoiceNode", credit_finance_invoice.id)
 
         return return_value
+        
+    def resolve_is_reminder_eligible(self, info):
+        """Check if this invoice is eligible for a reminder"""
+        # Only overdue invoices are eligible for reminders
+        if self.status != "OVERDUE":
+            return False
+            
+        # If no reminder has been sent yet, it's eligible
+        if not self.date_last_reminder:
+            return True
+            
+        # Check if it's been more than a day since the last reminder
+        import datetime
+        from django.utils import timezone
+        
+        today = timezone.now().date()
+        yesterday = today - datetime.timedelta(days=1)
+        
+        # If the last reminder was sent before yesterday, it's eligible
+        return self.date_last_reminder <= yesterday
 
     @classmethod
     def get_node(cls, info, id):
@@ -231,6 +261,7 @@ class CreateFinanceInvoice(graphene.relay.ClientIDMutation):
         account_subscription = graphene.ID(required=False)
         subscription_year = graphene.Int(required=False)
         subscription_month = graphene.Int(required=False)
+        send_email = graphene.Boolean(required=False, default_value=True)
         
     finance_invoice = graphene.Field(FinanceInvoiceNode)
 
@@ -275,6 +306,43 @@ class CreateFinanceInvoice(graphene.relay.ClientIDMutation):
 
         # Add empty invoice item when creating an invoice manually
         finance_invoice.item_add_empty()
+        
+        # Send initial notification email if requested and invoice is not in DRAFT status
+        send_email = input.get('send_email', True)
+        if send_email and finance_invoice.status != 'DRAFT':
+            try:
+                logger = logging.getLogger(__name__)
+                logger.info(f"Sending initial notification for invoice #{finance_invoice.invoice_number}")
+                
+                # Use the mail template dude to send the initial notification
+                mail_template_dude = MailTemplateDude(
+                    email_template="invoice_initial_notification",
+                    invoice=finance_invoice
+                )
+                
+                # Get the rendered email content
+                mail_content = mail_template_dude.render()
+                
+                # Send the email
+                if finance_invoice.account and finance_invoice.account.email:
+                    email = EmailMessage(
+                        mail_content['subject'],
+                        mail_content['html_message'],
+                        settings.DEFAULT_FROM_EMAIL,
+                        [finance_invoice.account.email],
+                        headers={'Content-Type': 'text/html'}
+                    )
+                    email.content_subtype = "html"
+                    email.send()
+                    logger.info(f"Initial notification sent for invoice #{finance_invoice.invoice_number}")
+                    
+                    # Record that we sent an initial notification
+                    finance_invoice.date_sent = datetime.datetime.now().date()
+                    finance_invoice.save(update_fields=['date_sent'])
+            except Exception as e:
+                logger = logging.getLogger(__name__)
+                logger.error(f"Error sending initial notification for invoice #{finance_invoice.invoice_number}: {str(e)}")
+                # Continue even if email sending fails
 
         return CreateFinanceInvoice(finance_invoice=finance_invoice)
 
