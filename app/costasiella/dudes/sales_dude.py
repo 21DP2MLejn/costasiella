@@ -184,12 +184,37 @@ class SalesDude:
         finance_invoice_item = None
         if create_invoice:
             finance_invoice_item = self._sell_subscription_create_invoice(account_subscription)
+            
+        # Send subscription activation email
+        self._send_subscription_activation_email(account_subscription)
 
         return {
             "account_subscription": account_subscription,
             "finance_invoice_item": finance_invoice_item
         }
 
+    @staticmethod
+    def _send_subscription_activation_email(account_subscription):
+        """
+        Send an email notification when a subscription is activated
+        """
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.info(f"Attempting to send subscription activation email for subscription ID: {account_subscription.id}")
+        
+        try:
+            mail_dude = MailDude(
+                account=account_subscription.account,
+                email_template="subscription_activated",
+                account_subscription=account_subscription
+            )
+            result = mail_dude.send()
+            logger.info(f"Subscription activation email sent: {result}")
+            return result
+        except Exception as e:
+            logger.error(f"Error sending subscription activation email: {str(e)}")
+            return False
+    
     @staticmethod
     def _sell_subscription_create_invoice(account_subscription):
         """

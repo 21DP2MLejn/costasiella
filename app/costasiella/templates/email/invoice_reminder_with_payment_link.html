@@ -1,85 +1,150 @@
-<!-- invoice_reminder_with_payment_link.html -->
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
             color: #333;
             max-width: 600px;
             margin: 0 auto;
         }
-        .header {
-            margin-bottom: 20px;
-        }
-        .invoice-details {
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-        }
-        .payment-button {
-            display: inline-block;
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 15px;
-        }
-        .footer {
-            margin-top: 30px;
-            font-size: 0.9em;
-            color: #666;
-        }
     </style>
 </head>
 <body>
-    <div class="header">
-        <p>Cienījamais/-ā {{ invoice.account.full_name }},</p>
-        <p>Mēs pamanījām, ka jūsu rēķins <strong>#{{ invoice.invoice_number }}</strong> ir nokavēts. Lūdzam veikt maksājumu pēc iespējas ātrāk.</p>
-    </div>
-    
-    <div class="invoice-details">
-        <p><strong>Rēķina numurs:</strong> {{ invoice.invoice_number }}</p>
-        <p><strong>Maksājamā summa:</strong> {{ invoice.balance }} EUR</p>
-        <p><strong>Apmaksas termiņš:</strong> {{ invoice.date_due|date:"j. F, Y" }}</p>
-        <p><strong>Statuss:</strong> Nokavēts ({{ overdue_days }} dienas)</p>
-    </div>
-    
-    <div style="margin: 30px 0; padding: 15px; background-color: #f9f9f9; border-radius: 5px;">
-        <p>Maksājiet tiešsaistē ar Mollie vai apmaksājiet rēķinu mūsu mājaslapā:</p>
-        
-        <div style="margin-top: 15px; text-align: center;">
-            {% if payment_url %}
-            <a href="{{ payment_url }}" style="display: inline-block; background-color: #4CAF50; color: white; padding: 8px 15px; text-decoration: none; border-radius: 4px; font-weight: bold; text-align: center; margin-right: 15px; font-size: 14px;">Maksāt ar Mollie</a>
-            {% endif %}
-            <a href="{{ invoice_url }}" style="display: inline-block; background-color: #FF9800; color: white; padding: 8px 15px; text-decoration: none; border-radius: 4px; font-weight: bold; text-align: center; font-size: 14px;">Apmaksāt mājaslapā</a>
+    <div style="max-width: 600px; margin: 0 auto; font-family: 'Helvetica Neue', Arial, sans-serif; color: #333; line-height: 1.6;">
+        <!-- Header with alert icon -->
+        <div style="text-align: center; padding: 30px 0; background-color: #1565c0; border-radius: 12px; margin-bottom: 25px;">
+            <div style="display: inline-block; background-color: #0d47a1; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                <span style="color: white; font-size: 30px; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">⏰</span>
+            </div>
+            <h1 style="color: #ffffff; margin: 0 0 10px 0; font-weight: 700; font-size: 28px;">Atgādinājums par rēķinu</h1>
+            <p style="color: #e3f2fd; margin: 0; font-size: 16px;">Rēķins #{{ invoice.invoice_number }}</p>
         </div>
-    </div>
-    
-    <div class="invoice-details" style="margin-top: 25px; {% if payment_url %}border-top: 1px dashed #ddd; padding-top: 20px;{% else %}border-top: none; padding-top: 0;{% endif %}">
-        <h3 style="margin-top: 0;">{% if payment_url %}Alternatīva apmaksas metode:{% endif %} Bankas pārskaitījums</h3>
-        <p>{% if payment_url %}Ja vēlaties, varat{% else %}Lūdzu,{% endif %} veikt bankas pārskaitījumu ar šādiem rekvizītiem:</p>
-        <p><strong>Bankas nosaukums:</strong> {{ bank_name }}</p>
-        <p><strong>Konta īpašnieks:</strong> {{ account_holder }}</p>
-        <p><strong>IBAN:</strong> {{ iban }}</p>
-        <p><strong>BIC/SWIFT:</strong> {{ bic }}</p>
-        <p><strong>Atsauce:</strong> Rēķins #{{ invoice.invoice_number }}</p>
-        <p style="font-style: italic; margin-top: 10px;">Lūdzu, norādiet rēķina numuru maksājuma atsaucē, lai nodrošinātu pareizu maksājuma apstrādi.</p>
-    </div>
-    
-    <p>Ja jūs jau esat veicis maksājumu, lūdzu, ignorējiet šo atgādinājumu.</p>
-    
-    <div class="footer">
-        <p>Ja jums ir kādi jautājumi vai neskaidrības par šo rēķinu, lūdzu, sazinieties ar mums.</p>
-        <p>Paldies par jūsu uzmanību šajā jautājumā.</p>
-        <p>Ar cieņu,<br>{{ organization }}</p>
-        <p style="font-size: 0.8em; margin-top: 20px; color: #888;">
-            <a href="{{ terms_url }}" style="color: #888; text-decoration: underline;">Pakalpojumu sniegšanas noteikumi</a>
-        </p>
+        
+        <!-- Greeting & Introduction -->
+        <div style="padding: 0 15px;">
+            <p style="font-size: 17px; margin-bottom: 25px;">Cienījamais/-ā <span style="font-weight: 600; color: #2c3e50;">{{ invoice.account.full_name }}</span>,</p>
+            <p style="font-size: 17px; margin-bottom: 30px;">Mēs pamanījām, ka jūsu rēķins <strong style="color: #FF9800;">#{{ invoice.invoice_number }}</strong> ir nokavēts. Lūdzam veikt maksājumu pēc iespējas ātrāk.</p>
+            
+            <!-- Invoice Details Card -->
+            <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-radius: 12px; padding: 25px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <div style="background-color: #1565c0; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                        <span style="color: white; font-size: 20px; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">📄</span>
+                    </div>
+                    <h2 style="margin: 0; color: #1565c0; font-size: 20px; font-weight: 600;">Rēķina informācija</h2>
+                </div>
+                
+                <div style="display: flex; flex-wrap: wrap; margin: 0 -10px;">
+                    <div style="flex: 1; min-width: 200px; padding: 10px;">
+                        <p style="margin: 0 0 12px 0; color: #5d6778; font-size: 14px;">RĒĶINA NUMURS</p>
+                        <p style="margin: 0; font-weight: 600; font-size: 16px; color: #2c3e50;">{{ invoice.invoice_number }}</p>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; padding: 10px;">
+                        <p style="margin: 0 0 12px 0; color: #5d6778; font-size: 14px;">MAKSĀJAMĀ SUMMA</p>
+                        <p style="margin: 0; font-weight: 600; font-size: 16px; color: #2c3e50;">{{ invoice.balance }} EUR</p>
+                    </div>
+                </div>
+                
+                <div style="display: flex; flex-wrap: wrap; margin: 0 -10px;">
+                    <div style="flex: 1; min-width: 200px; padding: 10px;">
+                        <p style="margin: 0 0 12px 0; color: #5d6778; font-size: 14px;">APMAKSAS TERMIŅŠ</p>
+                        <p style="margin: 0; font-weight: 600; font-size: 16px; color: #2c3e50;">{{ invoice.date_due|date:"j. F, Y" }}</p>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; padding: 10px;">
+                        <p style="margin: 0 0 12px 0; color: #5d6778; font-size: 14px;">STATUSS</p>
+                        {% if invoice.status == 'OVERDUE' %}
+                            <div style="display: inline-block; background-color: #0d47a1; color: white; font-weight: 600; border-radius: 20px; padding: 5px 15px; font-size: 14px;">
+                                Nokavēts ({{ overdue_days }} dienas)
+                            </div>
+                        {% else %}
+                            <div style="display: inline-block; background-color: #0d47a1; color: white; font-weight: 600; border-radius: 20px; padding: 5px 15px; font-size: 14px;">
+                                {{ invoice.get_status_display }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Payment Options Card -->
+            <div style="background: linear-gradient(135deg, #ffffff 0%, #f5f7fa 100%); border-radius: 12px; padding: 25px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #e3f2fd;">
+                <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <div style="background-color: #1565c0; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                        <span style="color: white; font-size: 20px; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">💳</span>
+                    </div>
+                    <h2 style="margin: 0; color: #1565c0; font-size: 20px; font-weight: 600;">Maksājuma iespējas</h2>
+                </div>
+                
+                <p style="font-size: 16px; margin-bottom: 20px;">Maksājiet tiešsaistē ar Mollie vai apmaksājiet rēķinu mūsu mājaslapā:</p>
+                
+                <div style="text-align: center; margin: 25px 0;">
+                    {% if payment_url %}
+                    <a href="{{ payment_url }}" style="display: inline-block; background-color: #1565c0; color: white; padding: 14px 28px; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 16px; margin: 0 10px 15px 0; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(21, 101, 192, 0.3);">Maksāt ar Mollie</a>
+                    {% endif %}
+                    <a href="{{ invoice_url }}" style="display: inline-block; background-color: #0d47a1; color: white; padding: 14px 28px; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 16px; margin: 0 0 15px 0; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(13, 71, 161, 0.3);">Apmaksāt mājaslapā</a>
+                </div>
+            </div>
+            
+            <!-- Bank Transfer Info Card -->
+            <div style="background: linear-gradient(135deg, #f8f9fa 0%, #f5f7fa 100%); border-radius: 12px; padding: 25px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #e3f2fd;">
+                <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <div style="background-color: #1565c0; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                        <span style="color: white; font-size: 20px; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">🏦</span>
+                    </div>
+                    <h2 style="margin: 0; color: #1565c0; font-size: 20px; font-weight: 600;">{% if payment_url %}Alternatīva apmaksas metode:{% endif %} Bankas pārskaitījums</h2>
+                </div>
+                
+                <p style="font-size: 16px; margin-bottom: 20px;">{% if payment_url %}Ja vēlaties, varat{% else %}Lūdzu,{% endif %} veikt bankas pārskaitījumu ar šādiem rekvizītiem:</p>
+                
+                <div style="display: flex; flex-wrap: wrap; margin: 0 -10px;">
+                    <div style="flex: 1; min-width: 200px; padding: 10px;">
+                        <p style="margin: 0 0 12px 0; color: #5d6778; font-size: 14px;">SAŅĒMĒJS</p>
+                        <p style="margin: 0; font-weight: 600; font-size: 16px;">{{ organization }}</p>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; padding: 10px;">
+                        <p style="margin: 0 0 12px 0; color: #5d6778; font-size: 14px;">BANKA</p>
+                        <p style="margin: 0; font-weight: 600; font-size: 16px;">{{ organization.bank_name|default:"" }}</p>
+                    </div>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; margin: 0 -10px;">
+                    <div style="flex: 1; min-width: 200px; padding: 10px;">
+                        <p style="margin: 0 0 12px 0; color: #5d6778; font-size: 14px;">KONTS</p>
+                        <p style="margin: 0; font-weight: 600; font-size: 16px;">{{ organization.bank_account|default:"" }}</p>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; padding: 10px;">
+                        <p style="margin: 0 0 12px 0; color: #5d6778; font-size: 14px;">SUMMA</p>
+                        <p style="margin: 0; font-weight: 600; font-size: 16px;">{{ invoice.total|floatformat:2 }} €</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 15px; padding: 15px; background-color: #f5f7fa; border-radius: 8px;">
+                    <div style="display: flex; align-items: center;">
+                        <div style="background-color: #1565c0; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
+                            <span style="color: white; font-size: 12px; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">ℹ️</span>
+                        </div>
+                        <p style="margin: 0; font-weight: 600; color: #1565c0;">Svarīga informācija</p>
+                    </div>
+                    <p style="margin: 10px 0 0 0; font-size: 15px;"><strong>Atsauce:</strong> Rēķins #{{ invoice.invoice_number }}</p>
+                    <p style="font-style: italic; margin-top: 5px; color: #5d6778;">Lūdzu, norādiet rēķina numuru maksājuma atsaucē, lai nodrošinātu pareizu maksājuma apstrādi.</p>
+                </div>
+            </div>
+            
+            <p style="font-size: 17px; margin-bottom: 30px;">Ja jūs jau esat veicis maksājumu, lūdzu, ignorējiet šo atgādinājumu.</p>
+            
+            <!-- Footer -->
+            <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #bbdefb; color: #5d6778; font-size: 15px;">
+                <p>Ja jums ir kādi jautājumi vai neskaidrības par šo rēķinu, lūdzu, sazinieties ar mums.</p>
+                <p>Paldies par jūsu uzmanību šajā jautājumā.</p>
+                <p style="margin-bottom: 15px;">Ar cieņu,<br><span style="font-weight: 600; color: #1565c0;">{{ organization }}</span></p>
+                
+                <p style="font-size: 13px; margin-top: 20px; color: #888;">
+                    <a href="{{ terms_url }}" style="color: #1565c0; text-decoration: none;">Pakalpojumu sniegšanas noteikumi</a>
+                </p>
+            </div>
+        </div>
     </div>
 </body>
 </html>
